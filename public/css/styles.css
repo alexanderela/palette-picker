@@ -8,6 +8,10 @@ button {
 	cursor: pointer;
 }
 
+button:focus {
+	outline: none;
+}
+
 .main-title {
 	font-size: 4rem;
 }
@@ -39,6 +43,21 @@ button {
 	/*border: 2px solid black;*/
 }
 
+.lock-btn {
+	background-image: url('./../assets/unlocked.svg');
+	cursor: pointer;
+	height: 3rem;
+	width: 3rem;
+	background-position: center;
+	background-size: cover;
+	border: transparent;
+	background-color: rgba(100, 100, 100, 0);
+}
+
+.locked {
+	background-image: url('./../assets/locked.svg');	
+}
+
 .palette-1 {
 	background-color: red;
 }
@@ -59,13 +78,6 @@ button {
 	background-color: yellow;
 }
 
-.fa-lock-open {
-	font-size: 1.5rem;
-}
-
-.fas {
-	cursor: pointer;
-}
 
 .save-palette-container {
 	display: flex;

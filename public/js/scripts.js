@@ -1,3 +1,5 @@
+$('.lock-btn').on('click', toggleLock)
+
 const getRandomColor = () => {
 	const characters = '0123456789abcdef'
 	let color = '#';
@@ -7,6 +9,9 @@ const getRandomColor = () => {
 	return color;
 }
 
-const lockColor = (e) => {
-	const selectedColor = e.target;
+
+function toggleLock(e) {
+	const lockButton = $(e.target);
+	console.log(lockButton)
+	lockButton.toggleClass('locked');
 }
