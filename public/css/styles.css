@@ -1,0 +1,72 @@
+body {
+	display: grid;
+	justify-items: center;
+	font-family: poppins;
+}
+
+button {
+	cursor: pointer;
+}
+
+.main-title {
+	font-size: 4rem;
+}
+
+.save-project-container {
+	display: flex;
+	margin: 2rem 0;
+}
+
+.project-input {
+	width: 10rem;
+}
+
+.save-project-btn {
+	width: 10rem;	
+}
+
+.all-palettes {
+	display: flex;
+}
+
+.palette {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 10rem;
+	height: 10rem;
+	border: 2px solid black;
+}
+
+.fa-lock-open {
+	font-size: 1.5rem;
+}
+
+.save-palette-container {
+	display: flex;
+	margin: 1.25rem 0;
+}
+
+.project-select {
+
+}
+
+.new-palette-btn {
+	width: 10rem;	
+	margin: 1.25rem 0;
+}
+
+.palette-input {
+	width: 10rem;
+}
+
+.save-palette-btn {
+	width: 10rem;		
+}
+
+.palette-break {
+	border: 1px solid black;
+	color: black;
+	width: 30rem;
+    outline-offset: none;
+}
