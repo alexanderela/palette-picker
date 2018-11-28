@@ -26,20 +26,45 @@ button {
 }
 
 .all-palettes {
-	display: flex;
+	display: grid;
+  grid-template-columns: repeat(5,1fr);
+  width: 100vw;
+  height: 15rem;
 }
 
 .palette {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 10rem;
-	height: 10rem;
-	border: 2px solid black;
+	/*border: 2px solid black;*/
+}
+
+.palette-1 {
+	background-color: red;
+}
+
+.palette-2 {
+	background-color: green;
+}
+
+.palette-3 {
+	background-color: orange;
+}
+
+.palette-4 {
+	background-color: blue;
+}
+
+.palette-5 {
+	background-color: yellow;
 }
 
 .fa-lock-open {
 	font-size: 1.5rem;
+}
+
+.fas {
+	cursor: pointer;
 }
 
 .save-palette-container {

@@ -6,3 +6,7 @@ const getRandomColor = () => {
 	}
 	return color;
 }
+
+const lockColor = (e) => {
+	const selectedColor = e.target;
+}
