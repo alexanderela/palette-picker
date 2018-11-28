@@ -3,6 +3,10 @@ const app = express();
 app.locals.projects = [];
 const bodyParser = require('body-parser');
 const uuidv4 = require('uuid/v4');
+app.locals.palettes = [
+	{id: 2, title: 'deez nuts', project_id: 20}, 
+	{id: 3, title: 'heeeeee', project_id: 30}
+];
 
 app.use( bodyParser.json() );
 
@@ -42,8 +46,14 @@ app.post('/api/v1/projects', (request, response) => {
 	}
 })
 
-
 //Palette Endpoints
+app.get('/api/v1/projects/:project_id/palettes', (request, response) => {
+	const project_id = parseInt(request.params.project_id);
+	const palettes = app.locals.palettes.filter(palette => palette.project_id === project_id);
+	return response.json({ palettes });
+});
+
+
 
 app.listen(app.get('port'), () => {
 	console.log(`${app.locals.title} is running on ${app.get('port')}`)
