@@ -3,10 +3,7 @@ const app = express();
 app.locals.projects = [];
 const bodyParser = require('body-parser');
 const uuidv4 = require('uuid/v4');
-app.locals.palettes = [
-	{id: 2, title: 'deez nuts', project_id: 20}, 
-	{id: 3, title: 'heeeeee', project_id: 30}
-];
+app.locals.palettes = [];
 
 app.use( bodyParser.json() );
 
@@ -53,7 +50,13 @@ app.get('/api/v1/projects/:project_id/palettes', (request, response) => {
 	return response.json({ palettes });
 });
 
-
+app.post('/api/v1/projects/:project_id/palettes', (request, response) => {
+	const project_id = parseInt(request.params.project_id);
+	const id = uuidv4();
+	const palette = request.body;
+	app.locals.palettes.push({ id, ...palette, project_id })
+	return response.status(201).json({ id, ...palette, project_id })
+});
 
 app.listen(app.get('port'), () => {
 	console.log(`${app.locals.title} is running on ${app.get('port')}`)
