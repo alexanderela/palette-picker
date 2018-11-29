@@ -35,7 +35,7 @@ app.post('/api/v1/projects', (request, response) => {
 
 	if (!project) {
 		return response.status(422).send({
-			error: 'No project title provided'
+			error: 'No project name provided'
 		});
 	} else {
 		app.locals.projects.push({ id, ...project });
@@ -61,4 +61,3 @@ app.post('/api/v1/palettes', (request, response) => {
 app.listen(app.get('port'), () => {
 	console.log(`${app.locals.title} is running on ${app.get('port')}`)
 })
-

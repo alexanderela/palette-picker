@@ -63,7 +63,7 @@ input {
 	color: #FFF;
 }
 
-.all-palettes {
+.all-colors {
 	display: grid;
   grid-template-columns: repeat(5,1fr);
   width: 100vw;
@@ -74,6 +74,7 @@ input {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	/*border: 2px solid black;*/
 }
 
@@ -86,6 +87,7 @@ input {
 	background-size: cover;
 	border: transparent;
 	background-color: rgba(100, 100, 100, 0);
+	margin: 0 0 0.5rem;
 }
 
 .locked {
@@ -112,10 +114,15 @@ input {
 	height: 2rem;
 	font-size: 1rem;
 	width: 15rem;	
-	margin: 1.25rem 0;
+	margin: 1.5rem 0;
 	background-color: #000;
 	color: #FFF;
 	font-weight: 700;
+}
+
+.new-palette-btn:hover {
+	background-color: #FFF;
+	color: #000;
 }
 
 .palette-input {
