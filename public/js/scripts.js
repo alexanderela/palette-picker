@@ -69,18 +69,18 @@ function getProject() {
 	})
 }
 
-function savePalette() {
-	const project = getProject()
-	console.log(project)
-	const inputValue = $('.palette-input').val()
-	let allColors = {}
-	for(let i = 1; i < 6; i++) {
-		allColors[`color${i}`] = $(`.color-${i}-text`).text()
-	}
-	const paletteInfo = {name: inputValue, project_id: project}
-	const paletteNameAndColors = Object.assign(allColors, paletteInfo)
-	storePalette(inputValue)
-}
+// function savePalette() {
+// 	const project = getProject()
+// 	const inputValue = $('.palette-input').val()
+// 	let allColors = {}
+// 	for(let i = 1; i < 6; i++) {
+// 		allColors[`color${i}`] = $(`.color-${i}-text`).text()
+// 	}
+// 	const paletteInfo = {name: inputValue, project_id: project}
+// 	const paletteNameAndColors = Object.assign(allColors, paletteInfo)
+// 	console.log(allColors)
+// 	storePalette(inputValue)
+// }
 
 
 
@@ -99,7 +99,6 @@ function storePalette(paletteName) {
 		console.log(error)
 	})
 }
->>>>>>> c5a4f20794530a787114029c1225b89c4ba2c6d7
 
 //Projects
 const mockProjects = [
@@ -191,6 +190,7 @@ function savePalette() {
 	for(let i = 1; i < 6; i++) {
 		allColors[`color${i}`] = $(`.color-${i}-text`).text()
 	}
+		console.log(allColors)
 	const paletteInfo = {name: inputValue, project_id: project}
 	const paletteNameAndColors = Object.assign(allColors, paletteInfo)
 	storePalette(inputValue)

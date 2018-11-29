@@ -4,9 +4,11 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: {
-      filename: './dev.sqlite3'
-    }
+    connection: 'postgres://localhost/palettepicker',
+    migrations: {
+    	directory: './db/migrations'
+    },
+    useNullAsDefault: true
   },
 	production: {
 		client: 'pg',
