@@ -1,6 +1,8 @@
 $(window).on('load', generatePalette)
 $('.lock-btn').on('click', toggleLock)
 $('.new-palette-btn').on('click', generatePalette)
+$('.save-project-btn').on('click', saveProject)
+$('.save-palette-btn').on('click', savePalette)
 
 function generatePalette(e) {
 	e.preventDefault()
@@ -28,3 +30,17 @@ function toggleLock(e) {
 	color.toggleClass('color-locked')
 };
 
+function saveProject() {
+	const inputValue = $('.project-input').val();
+	addProjectToDropdown(inputValue);
+	console.log(`project ${inputValue} saved`)
+}
+
+function addProjectToDropdown(projectName) {
+	$('.project-select').append(`<option value='${projectName}'>${projectName}</option>`)
+}
+
+function savePalette() {
+	const inputValue = $('.palette-input').val()
+	console.log(`palette ${inputValue} saved`)
+}

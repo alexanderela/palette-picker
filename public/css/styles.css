@@ -1,7 +1,9 @@
 body {
 	display: grid;
 	justify-items: center;
-	font-family: poppins;
+	font-family: 'Sarala', sans-serif;
+	/*font-family: 'Varela', sans-serif;*/
+/*	font-family: 'Capriola', sans-serif;*/
 }
 
 button {
@@ -18,24 +20,29 @@ input {
 	outline: none;
 	box-shadow: none;
 	margin: 0 1rem;
-	padding: 0 0 0 0.25rem;
+	padding: 0 0 0 0.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+  border: 1px solid #ddd;
 }
 
 .main-title {
-	font-size: 4rem;
+  font-size: 3rem;
+  margin: 2rem 0 0;
+  font-family: 'Poppins';
 }
 
 .save-project-container {
 	display: flex;
 	margin: 2rem 0;
 	/*background-color: #E9EBEE;*/
-	border: 2px solid #E7E9EB;
+  border: 1px solid #ddd;
+  border-radius: 3px;
 	height: 4rem;
 	align-items: center;
 	justify-content: center;
+	padding: 0 2rem;
 }
 
 .project-input {
@@ -47,6 +54,13 @@ input {
 	width: 10rem;	
 	font-weight: 700;
 	height: 50%;
+	border: 1px solid #0280FC;
+	color: #0280FC;
+}
+
+.save-project-btn:hover {
+	background-color: #0280FC;
+	color: #FFF;
 }
 
 .all-palettes {
@@ -78,30 +92,16 @@ input {
 	background-image: url('./../assets/locked.svg');	
 }
 
-.color-1 {
-	/*background-color: red;*/
-}
-
-.color-2 {
-	/*background-color: green;*/
-}
-
-.color-3 {
-	/*background-color: orange;*/
-}
-
-.color-4 {
-	/*background-color: blue;*/
-}
-
-.color-5 {
-	/*background-color: yellow;*/
-}
-
-
 .save-palette-container {
 	display: flex;
-	margin: 1.25rem 0;
+	margin: 2rem 0;
+	/*background-color: #E9EBEE;*/
+  border: 1px solid #ddd;
+  border-radius: 3px;
+	height: 4rem;
+	align-items: center;
+	justify-content: center;
+	padding: 0 2rem;
 }
 
 .project-select {
@@ -120,13 +120,23 @@ input {
 
 .palette-input {
 	width: 10rem;
+	height: 50%;
 }
 
+
 .save-palette-btn {
-	width: 10rem;		
-	background-color: #E9EBEE;
+	width: 10rem;	
 	font-weight: 700;
+	height: 50%;
+	border: 1px solid #0280FC;
+	color: #0280FC;
 }
+
+.save-palette-btn:hover {
+	background-color: #0280FC;
+	color: #FFF;
+}
+
 
 .palette-break {
 	border: 1px solid black;
