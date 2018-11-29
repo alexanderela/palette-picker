@@ -4,33 +4,36 @@
 		<title>Palette Picker</title>
 		<link href="../css/reset.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="../css/styles.css">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Capriola|Sarala|Varela|Montserrat|PT+Sans|Work+Sans" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<h1 class='main-title'>Palette Picker</h1>
 		<section class='save-project-container'>
-			<p>Create a new project</p>
+			<p>Create a new project:</p>
 			<input class='project-input' placeholder='New project name'>
 			<button class='save-project-btn'>Save Project</button>
 		</section>
-		<section class='all-palettes'>
-			<section class='palette palette-1'>
-				
-					<i class="fas fa-lock-open"><button class='lock'>
-				</button></i>
+		<section class='all-colors'>
+			<section class='palette color-1' disabled>
+				<button class='lock-btn'></button>
+				<h2 class='color-1-text'></h2>
 			</section>
-			<section class='palette palette-1'>
-				<i class="fas fa-lock-open"></i>
+			<section class='palette color-2' disabled>
+				<button class='lock-btn'></button>
+				<h2 class='color-2-text'></h2>
 			</section>
-			<section class='palette palette-1'>
-				<i class="fas fa-lock-open"></i>
+			<section class='palette color-3' disabled>
+				<button class='lock-btn'></button>
+				<h2 class='color-3-text'></h2>
 			</section>
-			<section class='palette palette-1'>
-				<i class="fas fa-lock-open"></i>
+			<section class='palette color-4' disabled>
+				<button class='lock-btn'></button>
+				<h2 class='color-4-text'></h2>
 			</section>
-			<section class='palette palette-1'>
-				<i class="fas fa-lock-open"></i>
+			<section class='palette color-5' disabled>
+				<button class='lock-btn'></button>
+				<h2 class='color-5-text'></h2>
 			</section>
 		</section>
 		<button class='new-palette-btn'>Generate New Palette!</button>
@@ -38,8 +41,6 @@
 		<section class='save-palette-container'>
 			<select class='project-select'>
     		<option value=''>Please choose an option</option>
-				<option value='Project 1'>Project 1</option>
-				<option value='Project 2'>Project 2</option>
 			</select>
 			<input class='palette-input' placeholder='Enter palette name'>
 			<button class='save-palette-btn'>Save Palette</button>
