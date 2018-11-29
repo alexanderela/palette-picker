@@ -175,4 +175,5 @@ input {
 
 .palette-swatch-hex {
 	display: none;
+  outline-offset: none;
 }
