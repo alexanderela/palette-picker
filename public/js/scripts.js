@@ -37,7 +37,6 @@ function saveProject() {
 	const inputValue = $('.project-input').val();
 	addProjectToDropdown(inputValue);
 	storeProject(inputValue)
-	console.log(`project ${inputValue} saved`)
 }
 
 function addProjectToDropdown(projectName) {
@@ -60,11 +59,26 @@ function storeProject(projectName) {
 		})
 }
 
+function getProject() {
+	fetch('/api/v1/projects')
+	.then(function(response) {
+		console.log(response)
+	})
+	.catch(function(error) {
+		console.log(error)
+	})
+}
+
 function savePalette() {
+	const project = getProject()
+	console.log(project)
 	const inputValue = $('.palette-input').val()
-	const currentPalette = $('.all-colors')
-
-
+	let allColors = {}
+	for(let i = 1; i < 6; i++) {
+		allColors[`color${i}`] = $(`.color-${i}-text`).text()
+	}
+	const paletteInfo = {name: inputValue, project_id: project}
+	const paletteNameAndColors = Object.assign(allColors, paletteInfo)
 	storePalette(inputValue)
 }
 

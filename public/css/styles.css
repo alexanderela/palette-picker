@@ -4,6 +4,9 @@ body {
 	font-family: 'Sarala', sans-serif;
 	/*font-family: 'Varela', sans-serif;*/
 /*	font-family: 'Capriola', sans-serif;*/
+/*	font-family: 'Montserrat', sans-serif;*/
+/*	font-family: 'PT Sans', sans-serif;*/
+/*	font-family: 'Work Sans', sans-serif;*/
 }
 
 button {
@@ -30,7 +33,7 @@ input {
 .main-title {
   font-size: 3rem;
   margin: 2rem 0 0;
-  font-family: 'Poppins';
+  font-family: 'Work Sans';
 }
 
 .save-project-container {
