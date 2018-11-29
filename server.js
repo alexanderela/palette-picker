@@ -96,10 +96,20 @@ app.post('/api/v1/projects', (request, response) => {
 
 //Palette Endpoints
 app.get('/api/v1/palettes', (request, response) => {
-	const project_id = parseInt(request.params.project_id);
-	const palettes = app.locals.palettes.filter(palette => palette.project_id === project_id);
-	return response.json({ palettes });
+	database('palettes').select()
+		.then((palettes) => {
+			response.status(200).json(palettes);
+		})
+		.catch((error) => {
+			response.status(500).json({ error });
+		});
 });
+
+// app.get('/api/v1/palettes', (request, response) => {
+// 	const project_id = parseInt(request.params.project_id);
+// 	const palettes = app.locals.palettes.filter(palette => palette.project_id === project_id);
+// 	return response.json({ palettes });
+// });
 
 app.post('/api/v1/palettes', (request, response) => {
 	const palette = request.body;
