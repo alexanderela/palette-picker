@@ -39,14 +39,14 @@ function saveProject() {
 	storeProject(inputValue)
 }
 
-function addProjectToDropdown(projectName) {
-	$('.project-select').append(`<option value='${projectName}'>${projectName}</option>`)
+function addProjectToDropdown(projectName, projectId) {
+	$('.project-select').append(`<option data-id='${projectId}' value='${projectName}'>${projectName}</option>`)
 }
 
 function storeProject(projectName) {
 	fetch('http://localhost:3000/api/v1/projects', {
     method: 'POST',
-    body: JSON.stringify({ projectName }),
+    body: JSON.stringify({ name: projectName }),
     headers:{
       'Content-Type': 'application/json'
     }
@@ -125,16 +125,6 @@ const mockPalettes = [
 		project_id: 1
 	},
 	{
-		id: 11,
-		name: 'dark palette',
-		color1: '#000000',
-		color2: '#1098F7',
-		color3: '#FFFFFF',
-		color4: '#B89E97',
-		color5: '#DECCCC',
-		project_id: 1
-	},
-	{
 		id: 12,
 		name: 'calm palette',
 		color1: '#04151F',
@@ -151,7 +141,7 @@ function showSavedPalettes() {
 		const { name, color1, color2, color3, color4, color5, project_id } = palette
 		return `
 		<section class='saved-project-palettes'>
-		<button class='saved-project'>Project: ${project_id}</button>
+		<button class='saved-project button-blue'>Project: ${project_id}</button>
 		<div class='palette-swatch'>
 			<div class='palette-thumb'>
 				<h3 class='palette-swatch-hex'>${color1}</h3>
@@ -168,7 +158,7 @@ function showSavedPalettes() {
 			<div class='palette-thumb'>
 				<h3 class='palette-swatch-hex'>${color5}</h3>
 				</div>
-			<button>X</button>
+			<button class='button-blue'>X</button>
 		</div>
 		</section>`
 	})

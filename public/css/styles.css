@@ -14,6 +14,12 @@ button {
 	border-radius: 20px;
 }
 
+.button-blue {
+	border: 1px solid #0280FC;
+	color: #0280FC;
+	font-weight: 700;
+}
+
 button:focus {
 	outline: none;
 }
@@ -55,10 +61,7 @@ input {
 
 .save-project-btn {
 	width: 10rem;	
-	font-weight: 700;
 	height: 50%;
-	border: 1px solid #0280FC;
-	color: #0280FC;
 }
 
 .save-project-btn:hover {
