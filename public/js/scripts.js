@@ -24,7 +24,6 @@ function getRandomColor(num) {
 	return color;
 };
 
-
 function toggleLock(e) {
 	const lockButton = $(e.target);
 	const color = $(e.target.parentNode);
@@ -33,27 +32,27 @@ function toggleLock(e) {
 	color.toggleClass('color-locked')
 };
 
-function getProjects() {
-	fetch('/api/v1/projects')
-		.then(function(response) {
-			console.log(response)
-	})
+function getProjects(inputProject) {
+	const projects = fetch('/api/v1/projects')
+		.then(response => response.json()) 
+		.then(data => addProjectToDropdown(data, inputProject))
 		.catch(function(error) {
 			console.log(error)
 	})
+		return Promise.resolve(projects)
 }
 
 function saveProject() {
-	const projects = getProjects()
-	console.log(projects)
 	const inputValue = $('.project-input').val();
-	addProjectToDropdown(inputValue);
 	storeProject(inputValue)
+	getProjects(inputValue)
 }
 
-
-function addProjectToDropdown(projectName, projectId) {
-	$('.project-select').append(`<option data-id='${projectId}' value='${projectName}'>${projectName}</option>`)
+function addProjectToDropdown(storedProjects, projectInput) {
+	console.log(storedProjects)
+	const projectId = storedProjects.filter(project => project.name === projectInput)
+	console.log(projectId[0])
+	$('.project-select').append(`<option data-id='${projectId[0].id}' value='${projectId[0].name}'>${projectId[0].name}</option>`)
 }
 
 function storeProject(projectName) {
@@ -71,7 +70,6 @@ function storeProject(projectName) {
 			console.log(error)
 		})
 }
-
 
 //Projects
 const mockProjects = [
@@ -96,37 +94,51 @@ const mockPalettes = [
 		color4: '#1F7A8C',
 		color5: '#DB222A',
 		project_id: 1
-	}
+	},
+	{
+		id: 12,
+		name: 'calm palette',
+		color1: '#04151F',
+		color2: '#183A37',
+		color3: '#EFD6AC',
+		color4: '#C44900',
+		color5: '#432534',
+		project_id: 2
+	},
 ]
 
-function showSavedPalettes() {
-	return mockPalettes.map(palette => {
-		const { name, color1, color2, color3, color4, color5, project_id } = palette
-		return `
-		<section class='saved-project-palettes'>
-			<button class='saved-project-button'>Project: ${project_id}</button>
-			
-			<div class='palette-swatch'>
-				<div class='palette-thumb'>
-					<h3 class='palette-swatch-hex'>${color1}</h3>
-				</div>
-				<div class='palette-thumb'>
-					<h3 class='palette-swatch-hex'>${color2}</h3>
-					</div>
-				<div class='palette-thumb'>
-					<h3 class='palette-swatch-hex'>${color3}</h3>
-					</div>
-				<div class='palette-thumb'>
-					<h3 class='palette-swatch-hex'>${color4}</h3>
-					</div>
-				<div class='palette-thumb'>
-					<h3 class='palette-swatch-hex'>${color5}</h3>
-					</div>
-				<button class='delete-btn'>X</button>
-			</div>
-		</section>`
-	})
 
+
+function showSavedPalettes() {
+	const projectID = 'Test'
+	const palettes = mockPalettes.map(palette => {
+		let { name, color1, color2, color3, color4, color5 } = palette
+		return 
+			`<div class='palette-swatch'>
+							<h3 class='palette-name'>${name}</h3>			
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color1}</h3>
+							</div>
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color2}</h3>
+								</div>
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color3}</h3>
+								</div>
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color4}</h3>
+								</div>
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color5}</h3>
+								</div>
+							<button class='delete-btn'>X</button>
+						</div>`
+	})
+		return `<section class='saved-project-palettes'>
+					<button class='saved-project-button'>Project: ${projectID}</button>
+					${palettes[0]}
+					${palettes[1]}
+				</section>`
 }
 
 
