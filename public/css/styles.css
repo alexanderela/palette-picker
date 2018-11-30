@@ -39,7 +39,8 @@ input {
 .main-title {
   font-size: 3rem;
   margin: 2rem 0 0;
-  font-family: 'Work Sans';
+  font-family: 'Raleway';
+  color: #0280FC;
 }
 
 .save-project-container {
@@ -117,17 +118,19 @@ input {
 }
 
 .new-palette-btn {
-	height: 2rem;
+	height: 3rem;
 	font-size: 1rem;
 	width: 15rem;	
 	margin: 1.5rem 0;
-	background-color: #000;
+	background-color: #0280FC;
 	color: #FFF;
 	font-weight: 700;
+	border-radius: 50px;
+	border: none;
 }
 
 .new-palette-btn:hover {
-	background-color: #FFF;
+	background-color: #fccb65;
 	color: #000;
 }
 
