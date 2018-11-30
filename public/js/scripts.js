@@ -24,7 +24,6 @@ function getRandomColor(num) {
 	return color;
 };
 
-
 function toggleLock(e) {
 	const lockButton = $(e.target);
 	const color = $(e.target.parentNode);
@@ -33,14 +32,27 @@ function toggleLock(e) {
 	color.toggleClass('color-locked')
 };
 
-function saveProject() {
-	const inputValue = $('.project-input').val();
-	addProjectToDropdown(inputValue);
-	storeProject(inputValue)
+function getProjects(inputProject) {
+	const projects = fetch('/api/v1/projects')
+		.then(response => response.json()) 
+		.then(data => addProjectToDropdown(data, inputProject))
+		.catch(function(error) {
+			console.log(error)
+	})
+		return Promise.resolve(projects)
 }
 
-function addProjectToDropdown(projectName, projectId) {
-	$('.project-select').append(`<option data-id='${projectId}' value='${projectName}'>${projectName}</option>`)
+function saveProject() {
+	const inputValue = $('.project-input').val();
+	storeProject(inputValue)
+	getProjects(inputValue)
+}
+
+function addProjectToDropdown(storedProjects, projectInput) {
+	console.log(storedProjects)
+	const projectId = storedProjects.filter(project => project.name === projectInput)
+	console.log(projectId[0])
+	$('.project-select').append(`<option class='proj-dropdown-opt' data-id='${projectId[0].id}' value='${projectId[0].name}'>${projectId[0].name}</option>`)
 }
 
 function storeProject(projectName) {
@@ -57,47 +69,6 @@ function storeProject(projectName) {
 		.catch(function(error) {
 			console.log(error)
 		})
-}
-
-function getProject() {
-	fetch('/api/v1/projects')
-		.then(function(response) {
-			console.log(response)
-	})
-		.catch(function(error) {
-			console.log(error)
-	})
-}
-
-// function savePalette() {
-// 	const project = getProject()
-// 	const inputValue = $('.palette-input').val()
-// 	let allColors = {}
-// 	for(let i = 1; i < 6; i++) {
-// 		allColors[`color${i}`] = $(`.color-${i}-text`).text()
-// 	}
-// 	const paletteInfo = {name: inputValue, project_id: project}
-// 	const paletteNameAndColors = Object.assign(allColors, paletteInfo)
-// 	console.log(allColors)
-// 	storePalette(inputValue)
-// }
-
-
-
-function storePalette(paletteName) {
-	fetch('http://localhost:3000/api/v1/palettes', {
-		method: 'POST',
-		body: JSON.stringify({ paletteName }),
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-	.then(function(response) {
-		console.log(response)
-	})
-	.catch(function(error) {
-		console.log(error)
-	})
 }
 
 //Projects
@@ -136,33 +107,38 @@ const mockPalettes = [
 	},
 ]
 
-function showSavedPalettes() {
-	return mockPalettes.map(palette => {
-		const { name, color1, color2, color3, color4, color5, project_id } = palette
-		return `
-		<section class='saved-project-palettes'>
-		<button class='saved-project button-blue'>Project: ${project_id}</button>
-		<div class='palette-swatch'>
-			<div class='palette-thumb'>
-				<h3 class='palette-swatch-hex'>${color1}</h3>
-			</div>
-			<div class='palette-thumb'>
-				<h3 class='palette-swatch-hex'>${color2}</h3>
-				</div>
-			<div class='palette-thumb'>
-				<h3 class='palette-swatch-hex'>${color3}</h3>
-				</div>
-			<div class='palette-thumb'>
-				<h3 class='palette-swatch-hex'>${color4}</h3>
-				</div>
-			<div class='palette-thumb'>
-				<h3 class='palette-swatch-hex'>${color5}</h3>
-				</div>
-			<button class='button-blue'>X</button>
-		</div>
-		</section>`
-	})
 
+
+function showSavedPalettes() {
+	const projectID = 'Test'
+	const palettes = mockPalettes.map(palette => {
+		let { name, color1, color2, color3, color4, color5 } = palette
+		return 
+			`<div class='palette-swatch'>
+							<h3 class='palette-name'>${name}</h3>			
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color1}</h3>
+							</div>
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color2}</h3>
+								</div>
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color3}</h3>
+								</div>
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color4}</h3>
+								</div>
+							<div class='palette-thumb'>
+								<h3 class='palette-swatch-hex'>${color5}</h3>
+								</div>
+							<button class='delete-btn'>X</button>
+						</div>`
+	})
+		return `<section class='saved-project-palettes'>
+					<button class='saved-project-button'>Project: ${projectID}</button>
+					${palettes[0]}
+					${palettes[1]}
+				</section>`
 }
 
 
@@ -173,24 +149,34 @@ function showSavedPalettes() {
 
 
 function savePalette() {
-	const project = getProject()
+	const project = getProjects()
 	console.log(project)
 	const inputValue = $('.palette-input').val()
 	let allColors = {}
 	for(let i = 1; i < 6; i++) {
 		allColors[`color${i}`] = $(`.color-${i}-text`).text()
 	}
-		console.log(allColors)
-	const paletteInfo = {name: inputValue, project_id: project}
-	const paletteNameAndColors = Object.assign(allColors, paletteInfo)
-	storePalette(inputValue)
+	const projectId = $('.proj-dropdown-opt').attr('data-id')
+	const paletteNameId = {name: inputValue, project_id: projectId}
+	const palette = Object.assign(allColors, paletteNameId)
+		console.log(palette)
+	storePalette(palette)
 	$('.saved-palettes').append(showSavedPalettes())
 }
 
-function storePalette(paletteName) {
+function storePalette(palette) {
+	const { name, color1, color2, color3, color4, color5, project_id } = palette
 	fetch('http://localhost:3000/api/v1/palettes', {
 		method: 'POST',
-		body: JSON.stringify({ paletteName }),
+		body: JSON.stringify({ 
+			name: name,
+			project_id: project_id,
+			color1: color1,
+			color2: color2,
+			color3: color3,
+			color4: color4,
+			color5: color5,
+		}),
 		headers: {
 			'Content-Type': 'application/json'
 		}
