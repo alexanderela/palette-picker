@@ -28,10 +28,6 @@ app.get('/api/v1/projects', (request, response) => {
 			response.status(500).json({ error });
 		});
 });
-// app.get('/api/v1/projects', (request, response) => {
-// 	const projects = app.locals.projects;
-// 	return response.json({ projects })
-// });
 
 app.get('/api/v1/projects/:id', (request, response) => {
 	database('projects').where('id', request.params.id).select()
@@ -48,16 +44,6 @@ app.get('/api/v1/projects/:id', (request, response) => {
 			response.status(500).json({ error });
 		});
 });
-
-// app.get('/api/v1/projects/:id', (request, response) => {
-// 	const { id } = request.params;
-// 	const project = app.locals.projects.find(project => project.id === id);
-// 	if (project) {
-// 		return response.status(200).json(project);
-// 	} else {
-// 		return response.sendStatus(404);
-// 	}
-// });
 
 app.post('/api/v1/projects', (request, response) => {
 	const project = request.body;
@@ -79,21 +65,6 @@ app.post('/api/v1/projects', (request, response) => {
 		});
 });
 
-
-// app.post('/api/v1/projects', (request, response) => {
-// 	const id = uuidv4();
-// 	const project = request.body;
-
-// 	if (!project) {
-// 		return response.status(422).send({
-// 			error: 'No project name provided'
-// 		});
-// 	} else {
-// 		app.locals.projects.push({ id, ...project });
-// 		return response.status(201).json({ id, project });
-// 	}
-// })
-
 //Palette Endpoints
 app.get('/api/v1/projects/:project_id/palettes', (request, response) => {
 	database('palettes').select()
@@ -104,12 +75,6 @@ app.get('/api/v1/projects/:project_id/palettes', (request, response) => {
 			response.status(500).json({ error });
 		});
 });
-
-// app.get('/api/v1/palettes', (request, response) => {
-// 	const project_id = parseInt(request.params.project_id);
-// 	const palettes = app.locals.palettes.filter(palette => palette.project_id === project_id);
-// 	return response.json({ palettes });
-// });
 
 app.post('/api/v1/palettes', (request, response) => {
 	const palette = request.body;
@@ -130,13 +95,17 @@ app.post('/api/v1/palettes', (request, response) => {
 		});
 })
 
-// app.post('/api/v1/palettes', (request, response) => {
-// 	const project_id = parseInt(request.params.project_id);
-// 	const id = uuidv4();
-// 	const palette = request.body;
-// 	app.locals.palettes.push({ id, ...palette, project_id })
-// 	return response.status(201).json({ id, ...palette, project_id })
-// });
+app.delete('/api/v1/projects/:project_id/palettes/:id', (request, response) => {
+	const { id } = request.params;
+
+	database('palettes').where('id', id).del()
+		.then(id => {
+			response.status(200).json({ message: `Palette ${id} deleted.` })
+		})
+		.catch(error => {
+			response.status(500).json({ error })
+		})
+})
 
 app.listen(app.get('port'), () => {
 	console.log(`${app.locals.title} is running on ${app.get('port')}`)
