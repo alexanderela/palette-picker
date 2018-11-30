@@ -52,7 +52,7 @@ function addProjectToDropdown(storedProjects, projectInput) {
 	console.log(storedProjects)
 	const projectId = storedProjects.filter(project => project.name === projectInput)
 	console.log(projectId[0])
-	$('.project-select').append(`<option data-id='${projectId[0].id}' value='${projectId[0].name}'>${projectId[0].name}</option>`)
+	$('.project-select').append(`<option class='proj-dropdown-opt' data-id='${projectId[0].id}' value='${projectId[0].name}'>${projectId[0].name}</option>`)
 }
 
 function storeProject(projectName) {
@@ -156,14 +156,15 @@ function savePalette() {
 	for(let i = 1; i < 6; i++) {
 		allColors[`color${i}`] = $(`.color-${i}-text`).text()
 	}
-	const paletteNameId = {name: inputValue, project_id: project}
+	const projectId = $('.proj-dropdown-opt').attr('data-id')
+	const paletteNameId = {name: inputValue, project_id: projectId}
 	const palette = Object.assign(allColors, paletteNameId)
 		console.log(palette)
-	storePalette(inputValue, palette)
+	storePalette(palette)
 	$('.saved-palettes').append(showSavedPalettes())
 }
 
-function storePalette(paletteName, palette) {
+function storePalette(palette) {
 	const { name, color1, color2, color3, color4, color5, project_id } = palette
 	fetch('http://localhost:3000/api/v1/palettes', {
 		method: 'POST',
