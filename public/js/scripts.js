@@ -97,13 +97,11 @@ const mockPalettes = [
 	}
 ]
 
-
-
-function showSavedPalettes() {
-	const projectID = 'Test'
-	const palettes = mockPalettes.map(palette => {
-		console.log(palette)
-		let { id, name, color1, color2, color3, color4, color5, project_id } = palette
+function showSavedPalettes(retrievedPalettes, projectName) {
+	console.log(retrievedPalettes)
+	const palettes = retrievedPalettes.map(pal => {
+		console.log(pal)
+		let { id, name, color1, color2, color3, color4, color5, project_id } = pal
 		return `<div class='palette-swatch'>
 			<h3 class='palette-name'>${name}</h3>	
 			<div class='palette-thumb'>
@@ -127,8 +125,8 @@ function showSavedPalettes() {
 
 		return `<section class='saved-project-palettes'>
 
-					<button class='saved-project-button'>Project: ${projectID}</button>
-					${palettes}
+					<button class='saved-project-button'>Project: ${projectName}</button>
+					${palettes.join('')}
 				</section>`
 }
 
@@ -148,9 +146,9 @@ async function deletePalette(e, paletteId, projectId) {
 
 
 
-function savePalette() {
-	const project = getProjects()
-	console.log(project)
+async function savePalette() {
+	// const project = getProjects()
+
 	const inputValue = $('.palette-input').val()
 	let allColors = {}
 	for(let i = 1; i < 6; i++) {
@@ -159,9 +157,9 @@ function savePalette() {
 	const projectId = $('.proj-dropdown-opt').attr('data-id')
 	const paletteNameId = {name: inputValue, project_id: projectId}
 	const palette = Object.assign(allColors, paletteNameId)
-		console.log(palette)
 	storePalette(palette)
-	$('.saved-palettes').append(showSavedPalettes())
+	const retrievedPalettes = await getPalettes(projectId)
+	$('.saved-palettes').append(showSavedPalettes(retrievedPalettes, paletteNameId.name))
 }
 
 function storePalette(palette) {
@@ -187,4 +185,11 @@ function storePalette(palette) {
 	.catch(function(error) {
 		console.log(error)
 	})
+}
+
+async function getPalettes(projectId) {
+	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes`
+	const response = await fetch(url)
+	const palettes = await response.json();
+	return palettes;
 }
