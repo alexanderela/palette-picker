@@ -167,28 +167,37 @@ input {
   margin: 2rem 0;
   border: 1px solid #ddd;
   border-radius: 3px;
-  height: 25rem;
+  height: auto;
   align-items: flex-start;
   justify-content: center;
   padding: 0 2rem;
   width: 19rem;
 }
 
+.palette-name {
+	cursor: pointer;
+}
+
 .palette-swatch {
 	display: flex;
   align-items: center;
+	cursor: pointer;
 }
 
 .saved-project-button {
 	border: 1px solid #0280FC;
-	color: #FFF;
-	background-color: #0280FC;
-	font-weight: 700;	
-	margin: 0 0 0.5rem 0;
+  color: #FFF;
+  background-color: #0280FC;
+  font-weight: 700;
+  margin: 0.75rem 0 0.5rem 0;
+  font-size: 1rem;
+  height: 2rem;
+  width: auto;
 }
 
 .saved-project-button:hover {
 	background-color: #fccb65;
+	border: 1px solid #fccb65;
 	color: #000;
 }
 
@@ -203,8 +212,9 @@ input {
   height: 1.5rem;
   width: 1.5rem;
   margin: 0.25rem;
-	background-color: red;
+	/*background-color: red;*/
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 .palette-swatch-hex {
@@ -228,4 +238,5 @@ input {
 
 .delete-btn:hover {
 	background-color: #000;
+	border: 1px solid #000;
 }
