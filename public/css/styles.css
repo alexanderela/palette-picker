@@ -47,8 +47,8 @@ input {
 	display: flex;
 	margin: 2rem 0;
 	/*background-color: #E9EBEE;*/
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  border: 1px solid #fccb65;
+  border-radius: 20px;
 	height: 4rem;
 	align-items: center;
 	justify-content: center;
@@ -165,8 +165,8 @@ input {
 	display: flex;
   flex-direction: column;
   margin: 2rem 0;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  border: 1px solid #fccb65;
+  border-radius: 20px;
   height: auto;
   align-items: flex-start;
   justify-content: center;

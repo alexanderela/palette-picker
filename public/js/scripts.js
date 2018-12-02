@@ -32,7 +32,8 @@ function toggleLock(e) {
 
 async function storeProjectInput(projectInput) {
 	const fetchedProjects = await fetchProjects()
-	return fetchedProjects.filter(project => project.name === projectInput)
+	const filteredProjects = fetchedProjects.filter(project => project.name === projectInput)
+	return filteredProjects
 }
 
 async function fetchProjects() {
@@ -42,58 +43,37 @@ async function fetchProjects() {
 }
 
 async function saveProject() {
-	const inputValue = $('.project-input').val();
+	const inputValue = $('.project-input').val()
 	const projectAlreadyStored = await storeProjectInput(inputValue)
 	const dropdown = $('.proj-select')
 
 	if(projectAlreadyStored.length === 0) {
-		storeProject(inputValue)
-		addProjectToDropdown(inputValue)		
+		let projectId = await storeProject(inputValue)
+		addProjectToDropdown(inputValue, projectId)		
 		$('.project-input').val('')
 	} else {
 		console.log(`Project ${inputValue} already added!`)
 	}
 }
 
-async function addProjectToDropdown(projectInput) {
-	const project = await storeProjectInput(projectInput)
-	$('.project-select').append(`<option class='proj-dropdown-opt' data-id='${project[0].id}' value='${project[0].name}'>${project[0].name}</option>`)
+async function addProjectToDropdown(projectInput, projectId) {
+	$('.project-select').append(`<option class='proj-dropdown-opt' data-id='${projectId.id}' value='${projectInput}'>${projectInput}</option>`)
 }
 
 async function storeProject(projectName) {
-	return await fetch('http://localhost:3000/api/v1/projects', {
+	const response = await fetch('http://localhost:3000/api/v1/projects', {
     method: 'POST',
     body: JSON.stringify({ name: projectName }),
     headers:{
       'Content-Type': 'application/json'
     }
 	})
-	return response.json()
+	const data = await response.json()
+	console.log(data)
+	return data
 }
 
-function setMainPaletteFromSaved(event) {
-	if($(event.target).hasClass('swatch')) {
-		console.log(event.target)
-		// console.log($(event.target.parentNode).find('.palette-thumb').text())
-		for(let i = 1; i < 6; i++) {
-			console.log($(`.swatch-color-${i}`).text().slice(0, 7))
-			$(`.color-${i}`).css('background-color', $(`.swatch-color-${i}`).text().slice(0, 7));
-		}
-	} 
-}
 
-async function deletePalette(e, paletteId, projectId) {
-	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes/${paletteId}`
-	return await fetch(url, {
-		method: 'DELETE',
-		body: JSON.stringify({
-			message: 'palette successfuly deleted hohhhhhh godddddd'
-		}),
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-}
 
 async function storePalette(palette) {
 	const { name, color1, color2, color3, color4, color5, project_id } = palette
@@ -112,7 +92,8 @@ async function storePalette(palette) {
 			'Content-Type': 'application/json'
 		}
 	})
-	return response.json();
+	const data = await response.json()
+	return data
 }
 
 
@@ -141,13 +122,14 @@ function compilePalette(paletteInput) {
 
 async function savePalette() {
 	const inputValue = $('.palette-input').val()
+	const projectName = $('.proj-dropdown-opt').text()
 	const palette = compilePalette(inputValue)
 	const { name, project_id } = palette
 	const projectAlreadyStored = await storePaletteInput(inputValue, project_id)
 
 	if(projectAlreadyStored.length === 0) {
 		storePalette(palette)
-		await showSavedPalettes(palette, name)
+		await showSavedPalettes(palette, projectName)
 		$('.palette-input').val('')
 	} else {
 		console.log(`Palette ${inputValue} already added!`)
@@ -155,17 +137,45 @@ async function savePalette() {
 }
 
 async function getPalettesForProject(projectId) {
-	const retrievedPalettes = await fetchPalettes(projectId)
-	return retrievedPalettes.filter(palette => palette.project_id === projectId)
+	let retrievedPalettes = await fetchPalettes(projectId)
+	console.log(retrievedPalettes)
+	let filteredPalettes = await retrievedPalettes.filter(async palette => palette.project_id === projectId)
+	console.log(filteredPalettes)
+	return filteredPalettes
 }
 
-async function showSavedPalettes(palette, projectName) {
-	console.log(palette)
-	const palettesFromProject = await getPalettesForProject(palette.project_id)
-	console.log(palettesFromProject)
-	const palettes = palettesFromProject.map(pal => {
-		let { id, name, color1, color2, color3, color4, color5, project_id } = pal
-		return `<div class='palette-swatch' onclick='setMainPaletteFromSaved(event)'>
+// function generatePalette(e) {
+// 	e.preventDefault();
+// 	for(let i = 1; i < 6; i++) {
+// 		if(!$(`.color-${i}`).hasClass('color-locked')) {
+// 			$(`.color-${i}`).css('background-color', getRandomColor(`${i}`));
+// 		}
+// 	}
+// }
+
+function setMainPaletteFromSaved(event) {
+	if($(event.target).hasClass('swatch')) {
+		// console.log(event.target)
+		console.log($(event.target.parentNode).find('.palette-thumb').text())
+		for(let i = 1; i < 6; i++) {
+			// console.log($(`.swatch-color-${i}`).text().slice(0, 7))
+			// const paletteThumbText = $(event.target.parentNode).find('.palette-thumb').text()
+			$(`.color-${i}`).css('background-color', getSwatchColors(`${i}`));
+			// $(`.color-${i}`).css('background-color', $(`.swatch-color-${i}`).text().slice(0, 7));
+		}
+	} 
+}
+
+function getSwatchColors(num) {
+	const swatchHexCodes = $(`.swatch-color-${num}`).text().slice(0, 7);
+	console.log(swatchHexCodes)
+	return swatchHexCodes
+}
+
+function showPaletteContainer(palette, projectName, allPalettes) {
+	return allPalettes.map(palette => {
+		let { id, name, color1, color2, color3, color4, color5, project_id } = palette
+		return `<div class='palette-swatch palette-swatch-${id}' data-id='${id}' onclick='setMainPaletteFromSaved(event)'>
 			<h3 class='palette-name swatch'>${name}</h3>	
 			<div class='palette-thumb swatch' style='background-color:${color1}'>
 				<h3 class='palette-swatch-hex swatch-color-1'>${color1}</h3>
@@ -185,10 +195,37 @@ async function showSavedPalettes(palette, projectName) {
 			<button class='delete-btn' onclick='deletePalette(event, ${id}, ${project_id})'>X</button>
 		</div>`
 	})
+}
 
+async function showSavedPalettes(palette, projectName) {
+	const projectDropdownName = $('.proj-dropdown-opt').text()
+	const allPalettes = await getPalettesForProject(palette.project_id)
+	const paletteContainer = showPaletteContainer(palette, projectName, allPalettes)
 	const projectWithPalettes = `<section class='saved-project-palettes'>
 					<button class='saved-project-button'>Project: ${projectName}</button>
-					${palettes.join('')}
+					${paletteContainer.join('')}
 					</section>`
-	$('.saved-palettes').append(projectWithPalettes)
+	if(projectName === projectDropdownName) {
+		$('.saved-palettes').append(projectWithPalettes)
+	} else {
+		debugger
+		$('.saved-project-palettes').append(paletteContainer)
+	}
+}
+
+async function deletePalette(e, paletteId, projectId) {
+	console.log('deletePalette hooked up')
+	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes/${paletteId}`
+	const response = await fetch(url, {
+		method: 'DELETE',
+		body: JSON.stringify({
+			message: 'palette successfuly deleted hohhhhhh godddddd'
+		}),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+	const data = response.json()
+	$(`.palette-swatch-${paletteId}`).remove()
+	return data
 }
