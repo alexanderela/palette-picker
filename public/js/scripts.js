@@ -1,4 +1,5 @@
 $(window).on('load', generatePalette)
+$(window).on('load', populateProjectDropdown)
 $('.lock-btn').on('click', toggleLock)
 $('.new-palette-btn').on('click', generatePalette)
 $('.save-project-btn').on('click', checkProjectInput)
@@ -29,6 +30,11 @@ function toggleLock(e) {
 	lockButton.toggleClass('locked');
 	color.toggleClass('color-locked');
 };
+
+async function populateProjectDropdown() {
+	const fetchedProjects = await fetchProjects()
+	fetchedProjects.forEach(project => addProjectToDropdown(project.name, project.id))
+}
 
 async function storeProjectInput(projectInput) {
 	const fetchedProjects = await fetchProjects()
