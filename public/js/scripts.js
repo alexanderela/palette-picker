@@ -65,6 +65,7 @@ async function saveProject() {
 		$('.project-input').val('')
 	} else {
 		console.log(`Project ${inputValue} already added!`)
+		$('.project-error').text(`Project '${inputValue}' already added!`)
 	}
 }
 
