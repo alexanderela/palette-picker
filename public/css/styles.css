@@ -35,6 +35,7 @@ input {
 	justify-content: center;
   border: 1px solid #ddd;
   font-size: 1rem;
+  font-family: 'Baloo Da';
 }
 
 .header {
@@ -152,10 +153,13 @@ input {
   background-position: 58% center;
   background-size: 20px;
   outline: none;
+  font-family: Baloo Da;
+  color: #5c5757;
 }
 
 .project-select {
-
+	cursor: pointer;
+	outline: none;
 }
 
 .new-palette-btn {
@@ -220,6 +224,8 @@ input {
 
 .palette-name {
 	cursor: pointer;
+  color: #5c5757;
+  margin: 0 0.75rem 0 0;
 }
 
 .palette-swatch {
@@ -248,7 +254,7 @@ input {
 .saved-palettes {
 	display: flex;
 	justify-content: space-evenly;
-	align-items: center;
+	align-items: flex-start;
 	width: 80%;
 }
 
