@@ -66,8 +66,8 @@ async function saveProject() {
 	const dropdown = $('.proj-select')
 
 	if(projectAlreadyStored.length === 0) {
-		let projectId = await storeProject(inputValue)
-		addProjectToDropdown(inputValue, projectId)		
+		let project = await storeProject(inputValue)
+		addProjectToDropdown(inputValue, project.id)		
 		$('.project-input').val('')
 	} else {
 		console.log(`Project ${inputValue} already added!`)
@@ -76,7 +76,7 @@ async function saveProject() {
 }
 
 async function addProjectToDropdown(projectInput, projectId) {
-	$('.project-select').append(`<option class='proj-dropdown-opt' data-id='${projectId.id}' value='${projectInput}'>${projectInput}</option>`)
+	$('.project-select').append(`<option class='proj-dropdown-opt ${projectInput}' data-id='${projectId}' value='${projectInput}'>${projectInput}</option>`)
 }
 
 async function storeProject(projectName) {
@@ -133,7 +133,8 @@ function compilePalette(paletteInput) {
 	for(let i = 1; i < 6; i++) {
 		allColors[`color${i}`] = $(`.color-${i}-text`).text()
 	}
-	const projectId = $('.proj-dropdown-opt').attr('data-id')
+	// const projectId = $('.proj-dropdown-opt').attr('data-id')
+	const projectId = $('.project-select option:selected').attr('data-id');
 	const paletteNameId = {name: paletteInput, project_id: projectId}
 	const palette = Object.assign(allColors, paletteNameId)
 	return palette
@@ -141,7 +142,7 @@ function compilePalette(paletteInput) {
 
 async function savePalette() {
 	const inputValue = $('.palette-input').val()
-	const projectName = $('.proj-dropdown-opt').text()
+	const projectName = $('.project-select option:selected').text();
 	const palette = compilePalette(inputValue)
 	const { name, project_id } = palette
 	const projectAlreadyStored = await storePaletteInput(inputValue, project_id)
@@ -156,11 +157,14 @@ async function savePalette() {
 }
 
 async function getPalettesForProject(projectId) {
+	debugger
 	let retrievedPalettes = await fetchPalettes(projectId)
-	console.log(retrievedPalettes)
-	let filteredPalettes = await retrievedPalettes.filter(async palette => palette.project_id === projectId)
-	console.log(filteredPalettes)
-	return filteredPalettes
+
+	// console.log(retrievedPalettes)
+	// let filteredPalettes = await retrievedPalettes.filter(async palette => palette.project_id === projectId)
+	// console.log(filteredPalettes)
+	// return filteredPalettes
+	return retrievedPalettes
 }
 
 function setMainPaletteFromSaved(event) {
@@ -178,8 +182,9 @@ function getSwatchColors(num) {
 	return swatchHexCodes
 }
 
-function showPaletteContainer(palette, projectName, allPalettes) {
-	return allPalettes.map(palette => {
+function showPaletteContainer(palette, projectName, projectPalettes) {
+	debugger
+	return projectPalettes.map(palette => {
 		let { id, name, color1, color2, color3, color4, color5, project_id } = palette
 		return `<div class='palette-swatch palette-swatch-${id}' data-id='${id}' onclick='setMainPaletteFromSaved(event)'>
 			<h3 class='palette-name swatch'>${name}</h3>	
@@ -204,9 +209,10 @@ function showPaletteContainer(palette, projectName, allPalettes) {
 }
 
 async function showSavedPalettes(palette, projectName) {
-	const projectDropdownName = $('.proj-dropdown-opt').text()
-	const allPalettes = await getPalettesForProject(palette.project_id)
-	const paletteContainer = showPaletteContainer(palette, projectName, allPalettes)
+	debugger
+	const projectDropdownName = $('.project-select option:selected').text()
+	const projectPalettes = await getPalettesForProject(palette.project_id)
+	const paletteContainer = showPaletteContainer(palette, projectName, projectPalettes)
 	const projectWithPalettes = `<section class='saved-project-palettes'>
 					<button class='saved-project-button'>Project: ${projectName}</button>
 					${paletteContainer.join('')}
@@ -219,7 +225,6 @@ async function showSavedPalettes(palette, projectName) {
 }
 
 async function deletePalette(e, paletteId, projectId) {
-	console.log('deletePalette hooked up')
 	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes/${paletteId}`
 	const response = await fetch(url, {
 		method: 'DELETE',
