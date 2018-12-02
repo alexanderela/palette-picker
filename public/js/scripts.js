@@ -1,7 +1,7 @@
 $(window).on('load', generatePalette)
 $('.lock-btn').on('click', toggleLock)
 $('.new-palette-btn').on('click', generatePalette)
-$('.save-project-btn').on('click', saveProject)
+$('.save-project-btn').on('click', checkProjectInput)
 $('.save-palette-btn').on('click', savePalette)
 
 function generatePalette(e) {
@@ -42,6 +42,18 @@ async function fetchProjects() {
 	return response
 }
 
+function checkProjectInput() {
+	const inputValue = $('.project-input').val()
+	const projectError = $('.project-error')
+	
+	if(inputValue !== '') {
+		projectError.text('')
+		saveProject()
+	} else {
+		projectError.text('Please enter a name for your project')
+	}
+}
+
 async function saveProject() {
 	const inputValue = $('.project-input').val()
 	const projectAlreadyStored = await storeProjectInput(inputValue)
@@ -53,6 +65,7 @@ async function saveProject() {
 		$('.project-input').val('')
 	} else {
 		console.log(`Project ${inputValue} already added!`)
+		$('.project-error').text(`Project '${inputValue}' already added!`)
 	}
 }
 
