@@ -4,6 +4,7 @@ $('.lock-btn').on('click', toggleLock)
 $('.new-palette-btn').on('click', generatePalette)
 $('.save-project-btn').on('click', checkProjectInput)
 $('.save-palette-btn').on('click', savePalette)
+$('.project-select').on('change', populatePalettesFromDropdown)
 
 function generatePalette(e) {
 	e.preventDefault();
@@ -149,7 +150,7 @@ async function savePalette() {
 
 	if(projectAlreadyStored.length === 0) {
 		storePalette(palette)
-		await showSavedPalettes(palette, projectName)
+		await showSavedPalettes(project_id, projectName)
 		$('.palette-input').val('')
 	} else {
 		console.log(`Palette ${inputValue} already added!`)
@@ -157,14 +158,17 @@ async function savePalette() {
 }
 
 async function getPalettesForProject(projectId) {
-	debugger
 	let retrievedPalettes = await fetchPalettes(projectId)
-
-	// console.log(retrievedPalettes)
-	// let filteredPalettes = await retrievedPalettes.filter(async palette => palette.project_id === projectId)
-	// console.log(filteredPalettes)
-	// return filteredPalettes
 	return retrievedPalettes
+}
+
+function populatePalettesFromDropdown(e) {
+	e.preventDefault()
+	const projectId = $('.project-select option:selected').attr('data-id');
+	const projectName = $('.project-select option:selected').text();
+	clearDisplayedPalettes()
+	const projectPalettes = getPalettesForProject(projectId)
+	showSavedPalettes(projectId, projectName)
 }
 
 function setMainPaletteFromSaved(event) {
@@ -182,8 +186,7 @@ function getSwatchColors(num) {
 	return swatchHexCodes
 }
 
-function showPaletteContainer(palette, projectName, projectPalettes) {
-	debugger
+function showPaletteContainer(projectName, projectPalettes) {
 	return projectPalettes.map(palette => {
 		let { id, name, color1, color2, color3, color4, color5, project_id } = palette
 		return `<div class='palette-swatch palette-swatch-${id}' data-id='${id}' onclick='setMainPaletteFromSaved(event)'>
@@ -208,21 +211,23 @@ function showPaletteContainer(palette, projectName, projectPalettes) {
 	})
 }
 
-async function showSavedPalettes(palette, projectName) {
+async function showSavedPalettes(projectId, projectName) {
 	debugger
 	const projectDropdownName = $('.project-select option:selected').text()
-	const projectPalettes = await getPalettesForProject(palette.project_id)
-	const paletteContainer = showPaletteContainer(palette, projectName, projectPalettes)
+	const projectPalettes = await getPalettesForProject(projectId)
+	const paletteContainer = showPaletteContainer(projectName, projectPalettes)
 	const projectWithPalettes = `<section class='saved-project-palettes'>
 					<button class='saved-project-button'>Project: ${projectName}</button>
 					${paletteContainer.join('')}
 					</section>`
-	if(projectName === projectDropdownName) {
-		$('.saved-palettes').append(projectWithPalettes)
-	} else {
-		$('.saved-project-palettes').append(paletteContainer)
-	}
+	clearDisplayedPalettes()
+	$('.saved-palettes').append(projectWithPalettes)
 }
+
+function clearDisplayedPalettes() {
+	$('.saved-project-palettes').remove()	
+}
+
 
 async function deletePalette(e, paletteId, projectId) {
 	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes/${paletteId}`

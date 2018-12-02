@@ -78,7 +78,6 @@ app.get('/api/v1/projects/:project_id/palettes', (request, response) => {
 });
 
 app.post('/api/v1/palettes', (request, response) => {
-	console.log('I ran!')
 	const palette = request.body;
 
 	for (let requiredParameter of ['name', 'color1', 'color2', 'color3', 'color4', 'color5', 'project_id']) {
