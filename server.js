@@ -67,7 +67,8 @@ app.post('/api/v1/projects', (request, response) => {
 
 //Palette Endpoints
 app.get('/api/v1/projects/:project_id/palettes', (request, response) => {
-	database('palettes').select()
+	const projectId = request.params.project_id
+	database('palettes').where('project_id', projectId).select()
 		.then((palettes) => {
 			response.status(200).json(palettes);
 		})
@@ -86,6 +87,7 @@ app.post('/api/v1/palettes', (request, response) => {
 				.send({ error: `Expected format: { name: <String>, color1: <String>, color2: <String>, color3: <String>, color4: <String>, color5: <String>, project_id: <Number> You're missing a '${requiredParameter}' property.}` })
 		}
 	}
+	console.log(palette)
 	database('palettes').insert(palette, 'id')
 		.then(palette => {
 			response.status(201).json({ id: palette[0] })
