@@ -125,6 +125,7 @@ async function fetchPalettes(projectId) {
 }
 
 async function storePaletteInput(paletteInput, projectId) {
+
 	const fetchedPalettes = await fetchPalettes(projectId)
 	return fetchedPalettes.filter(palette => palette.name === paletteInput)
 }
@@ -142,6 +143,7 @@ function compilePalette(paletteInput) {
 }
 
 async function savePalette() {
+
 	const inputValue = $('.palette-input').val()
 	const projectName = $('.project-select option:selected').text();
 	const palette = compilePalette(inputValue)
@@ -173,18 +175,21 @@ function populatePalettesFromDropdown(e) {
 
 function setMainPaletteFromSaved(event) {
 	if($(event.target).hasClass('swatch')) {
-		console.log($(event.target.parentNode).find('.palette-thumb').text())
+		const paletteSwatch = $(event.target.parentNode)
+		console.log($(event.target.parentNode).find('.swatch-color-1').text())
+
 		for(let i = 1; i < 6; i++) {
-			$(`.color-${i}`).css('background-color', getSwatchColors(`${i}`));
+			$(`.color-${i}`).css('background-color', paletteSwatch.find(`.swatch-color-${i}`).text());
+			// $(`.color-${i}`).css('background-color', getSwatchColors(`${i}`));
 		}
 	} 
 }
 
-function getSwatchColors(num) {
-	const swatchHexCodes = $(`.swatch-color-${num}`).text().slice(0, 7);
-	console.log(swatchHexCodes)
-	return swatchHexCodes
-}
+// function getSwatchColors(num) {
+// 	const swatchHexCodes = $(`.swatch-color-${num}`).text().slice(0, 7);
+// 	console.log(swatchHexCodes)
+// 	return swatchHexCodes
+// }
 
 function showPaletteContainer(projectName, projectPalettes) {
 	return projectPalettes.map(palette => {
@@ -212,7 +217,7 @@ function showPaletteContainer(projectName, projectPalettes) {
 }
 
 async function showSavedPalettes(projectId, projectName) {
-	debugger
+	//
 	const projectDropdownName = $('.project-select option:selected').text()
 	const projectPalettes = await getPalettesForProject(projectId)
 	const paletteContainer = showPaletteContainer(projectName, projectPalettes)
