@@ -144,24 +144,11 @@ async function getPalettesForProject(projectId) {
 	return filteredPalettes
 }
 
-// function generatePalette(e) {
-// 	e.preventDefault();
-// 	for(let i = 1; i < 6; i++) {
-// 		if(!$(`.color-${i}`).hasClass('color-locked')) {
-// 			$(`.color-${i}`).css('background-color', getRandomColor(`${i}`));
-// 		}
-// 	}
-// }
-
 function setMainPaletteFromSaved(event) {
 	if($(event.target).hasClass('swatch')) {
-		// console.log(event.target)
 		console.log($(event.target.parentNode).find('.palette-thumb').text())
 		for(let i = 1; i < 6; i++) {
-			// console.log($(`.swatch-color-${i}`).text().slice(0, 7))
-			// const paletteThumbText = $(event.target.parentNode).find('.palette-thumb').text()
 			$(`.color-${i}`).css('background-color', getSwatchColors(`${i}`));
-			// $(`.color-${i}`).css('background-color', $(`.swatch-color-${i}`).text().slice(0, 7));
 		}
 	} 
 }
@@ -208,7 +195,6 @@ async function showSavedPalettes(palette, projectName) {
 	if(projectName === projectDropdownName) {
 		$('.saved-palettes').append(projectWithPalettes)
 	} else {
-		debugger
 		$('.saved-project-palettes').append(paletteContainer)
 	}
 }

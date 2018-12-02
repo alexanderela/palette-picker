@@ -113,6 +113,28 @@ input {
 	padding: 0 2rem;
 }
 
+.dropdown-container {
+  width: 120%;
+  overflow: hidden;
+}
+
+.dropdown-container select{
+  background: transparent;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  width: 120%;
+  position: relative;
+  z-index: 10;
+  font-size: 1em;
+  width: 128%;
+  background: url('./../assets/arrow-down.svg') no-repeat;
+  background-position: 58% center;
+  background-size: 20px;
+  outline: none;
+}
+
 .project-select {
 
 }
@@ -135,13 +157,13 @@ input {
 }
 
 .palette-input {
-	width: 10rem;
+	width: 117%;
 	height: 50%;
 }
 
 
 .save-palette-btn {
-	width: 10rem;	
+	width: 23rem;	
 	font-weight: 700;
 	height: 50%;
 	border: 1px solid #0280FC;
