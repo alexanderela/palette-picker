@@ -30,7 +30,7 @@ function toggleLock(e) {
 	color.toggleClass('color-locked');
 };
 
-async function addIdToProjectInput(projectInput) {
+async function storeProjectInput(projectInput) {
 	const fetchedProjects = await fetchProjects()
 	return fetchedProjects.filter(project => project.name === projectInput)
 }
@@ -43,7 +43,7 @@ async function fetchProjects() {
 
 async function saveProject() {
 	const inputValue = $('.project-input').val();
-	const projectAlreadyStored = await addIdToProjectInput(inputValue)
+	const projectAlreadyStored = await storeProjectInput(inputValue)
 	const dropdown = $('.proj-select')
 
 	if(projectAlreadyStored.length === 0) {
@@ -159,14 +159,14 @@ const inputValue = $('.palette-input').val()
 	const paletteNameId = {name: inputValue, project_id: projectId}
 	const palette = Object.assign(allColors, paletteNameId)
 	storePalette(palette)
-	const retrievedPalettes = await getPalettes(projectId)
+	const retrievedPalettes = await fetchPalettes(projectId)
 	$('.saved-palettes').append(showSavedPalettes(retrievedPalettes, paletteNameId.name, event))
 	$('.palette-input').val('')
 }
 
-function storePalette(palette) {
+async function storePalette(palette) {
 	const { name, color1, color2, color3, color4, color5, project_id } = palette
-	fetch('http://localhost:3000/api/v1/palettes', {
+	const response = await fetch('http://localhost:3000/api/v1/palettes', {
 		method: 'POST',
 		body: JSON.stringify({ 
 			name: name,
@@ -181,17 +181,36 @@ function storePalette(palette) {
 			'Content-Type': 'application/json'
 		}
 	})
-	.then(function(response) {
-		console.log(response)
-	})
-	.catch(function(error) {
-		console.log(error)
-	})
+	return response.json();
 }
 
-async function getPalettes(projectId) {
+
+async function storeProjectInput(projectInput) {
+	const fetchedProjects = await fetchProjects()
+	return fetchedProjects.filter(project => project.name === projectInput)
+}
+
+async function fetchPalettes(projectId) {
 	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes`
 	const response = await fetch(url)
 	const palettes = await response.json();
 	return palettes;
+}
+
+async function saveProject() {
+	const inputValue = $('.project-input').val();
+	const projectAlreadyStored = await storeProjectInput(inputValue)
+	const dropdown = $('.proj-select')
+
+	if(projectAlreadyStored.length === 0) {
+		storeProject(inputValue)
+		addProjectToDropdown(inputValue)		
+		$('.project-input').val('')
+	} else {
+		console.log(`Project ${inputValue} already added!`)
+	}
+	// if(!dropdown.children().text() === inputValue) {
+	// 	console.log('dropdown logic working')
+	// 	addProjectToDropdown(inputValue)
+	// }
 }
