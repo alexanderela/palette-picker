@@ -4,16 +4,18 @@
 		<title>Palette Picker</title>
 		<link href="../css/reset.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="../css/styles.css">
-		<link href="https://fonts.googleapis.com/css?family=Capriola|Sarala|Varela|Montserrat|PT+Sans|Work+Sans|Raleway" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Capriola|Sarala|Varela|Montserrat|PT+Sans|Work+Sans|Raleway|Comfortaa|Fredoka+One|Baloo+Chettan|Baloo+Da" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
-		<h1 class='main-title'>Palette Picker</h1>
-		<section class='save-project-container'>
-			<p>Create a new project:</p>
-			<input class='project-input' placeholder='New project name'>
-			<button class='save-project-btn button-blue'>Save Project</button>
-		</section>
+		<header class='header'>
+			<h1 class='main-title'>Palette Picker</h1>
+			<section class='save-project-container'>
+				<p class='create-project'>Create a new project:</p>
+				<input class='project-input' placeholder='New project name'>
+				<button class='save-project-btn button-blue'>Save Project</button>
+			</section>
+		</header>
 		<section class='all-colors'>
 			<section class='palette color-1' disabled>
 				<button class='lock-btn'></button>
@@ -37,7 +39,7 @@
 			</section>
 		</section>
 		<button class='new-palette-btn'>Generate New Palette!</button>
-
+		<!-- <hr class='palette-break'> -->
 		<section class='save-palette-container'>
 			<div class='dropdown-container'>
 				<select class='project-select'>
@@ -47,7 +49,7 @@
 			<input class='palette-input' placeholder='Enter palette name'>
 			<button class='save-palette-btn button-blue'>Save Palette</button>
 		</section>
-		<hr class='palette-break'>
+		<!-- <hr class='palette-break'> -->
 		<section class='saved-palettes'></section>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
