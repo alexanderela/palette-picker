@@ -248,22 +248,31 @@ input {
   width: 19rem;
 }
 
-.palette-name {
-	cursor: pointer;
-  color: #5c5757;
-  margin: 0 0.75rem 0 0;
-}
-
 .palette-swatch {
 	display: flex;
   align-items: center;
 	cursor: pointer;
 }
 
-.palette-swatch:hover {
-  border-left: 3px solid #0280FC;
-  padding: 0 0 0 1rem;
+.palette-swatch:hover > .bullet-hover {
+  visibility: visible;
 }
+
+.bullet-hover {
+	height: 0.5rem;
+  width: 0.5rem;
+  background-color: #0280FC;
+  border-radius: 50%;
+  margin: 0 0.5rem 0 0;
+  visibility: hidden;
+}
+
+.palette-name {
+	cursor: pointer;
+  color: #5c5757;
+  margin: 0 0.75rem 0 0;
+}
+
 
 .saved-project-header {
   color: #0280FC;

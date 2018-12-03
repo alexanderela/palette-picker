@@ -197,6 +197,7 @@ function showPaletteContainer(projectName, projectPalettes) {
 	return projectPalettes.map(palette => {
 		let { id, name, color1, color2, color3, color4, color5, project_id } = palette
 		return `<div class='palette-swatch palette-swatch-${id}' data-id='${id}' onclick='setMainPaletteFromSaved(event)'>
+			<div class='bullet-hover'></div>
 			<h3 class='palette-name swatch'>${name}</h3>	
 			<div class='palette-thumb swatch' style='background-color:${color1}'>
 				<h3 class='palette-swatch-hex swatch-color-1'>${color1}</h3>
