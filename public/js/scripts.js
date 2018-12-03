@@ -123,11 +123,10 @@ async function fetchPalettes(projectId) {
 	return palettes;
 }
 
-async function storePaletteInput(paletteInput, projectId) {
-
-	const fetchedPalettes = await fetchPalettes(projectId)
-	return fetchedPalettes.filter(palette => palette.name === paletteInput)
-}
+// async function storePaletteInput(paletteInput, projectId) {
+// 	const fetchedPalettes = await fetchPalettes(projectId)
+// 	return fetchedPalettes.filter(palette => palette.name === paletteInput)
+// }
 
 function compilePalette(paletteInput) {
 	let allColors = {}
@@ -157,16 +156,18 @@ async function savePalette() {
 	const projectName = $('.project-select option:selected').text();
 	const palette = compilePalette(inputValue)
 	const { name, project_id } = palette
-	const projectAlreadyStored = await storePaletteInput(inputValue, project_id)
+	const names = document.querySelectorAll('.palette-name')
 
-	if(projectAlreadyStored.length === 0) {
-		storePalette(palette)
+	for(let i = 0; i < names.length; i++) {
+		if(names[i].innerText === name) {
+			$('.palette-error').text(`Palette '${inputValue}' already added!`)
+			return
+		}
+	}
+	const id = await storePalette(palette)
+	const paletteArea = $('.saved-project-palettes')
 		await showSavedPalettes(project_id, projectName)
 		$('.palette-input').val('')
-	} else {
-		console.log(`Palette ${inputValue} already added!`)
-		$('.palette-error').text(`Project '${inputValue}' already added!`)
-	}
 }
 
 async function getPalettesForProject(projectId) {

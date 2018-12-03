@@ -2,11 +2,6 @@ body {
 	display: grid;
 	justify-items: center;
 	font-family: 'Baloo Chettan', sans-serif;
-	/*font-family: 'Varela', sans-serif;*/
-/*	font-family: 'Capriola', sans-serif;*/
-/*	font-family: 'Montserrat', sans-serif;*/
-/*	font-family: 'PT Sans', sans-serif;*/
-/*	font-family: 'Work Sans', sans-serif;*/
 }
 
 button {
@@ -242,7 +237,7 @@ input {
 	border-top: 1px solid #E7E9EB;
 	border-bottom: 1px solid #E7E9EB;
   height: auto;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 	padding: 0.5rem 2rem 1rem;
   width: 19rem;
@@ -325,4 +320,72 @@ input {
 .delete-btn:hover {
 	background-color: #000;
 	border: 1px solid #000;
+}
+
+
+@media (max-width: 882px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    'title'
+    'input';
+    height: 7rem;
+    justify-content: center;
+  }
+
+  .main-title {
+  	grid-area: title;
+    padding: 1rem 0 0 0;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+  	font-size: 2rem;
+  }
+
+  .header-left {
+  	grid-area: input;
+  	margin: 0;
+  }
+
+  .save-project-container {
+  	margin: 0;
+  }
+
+  .palette-input {
+  	font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+	.header {
+		width: 100vw;
+	}
+
+	.main-title {
+
+	}
+
+  .header-left {
+		width: 100vw;
+  }
+
+	.all-colors {
+		grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: 1fr;
+    width: 100%;
+	}
+
+	.palette {
+		flex-direction: row;
+	}
+
+	.lock-btn {
+		height: 2rem;
+		width: 2rem;
+	}
+
+  .palette-input {
+  	font-size: 0.5rem;
+  }	
 }
