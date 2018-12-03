@@ -22,13 +22,13 @@ This project required us to build a palette picker, where users can generate col
 Project spec can be found [here](http://frontend.turing.io/projects/palette-picker.html)
 
 ## Wireframe
-![Alt text](./public/assets/Palette_Picker_Wireframe "Wireframe")
+![Alt text](./public/assets/Palette_Picker_Wireframe.png "Wireframe")
 
 ## Desktop View
-![Alt text](./public/assets/palette-picker-desktop "Desktop view")
+![Alt text](./public/assets/palette-picker-desktop.png "Desktop view")
 
 ## Tablet View
-![Alt text](./public/assets/palette-picker-tablet "Tablet view")
+![Alt text](./public/assets/palette-picker-tablet.png "Tablet view")
 
 ## Mobile View
-![Alt text](./public/assets/palette-picker-mobile "Mobile view")
+![Alt text](./public/assets/palette-picker-mobile.png "Mobile view")
