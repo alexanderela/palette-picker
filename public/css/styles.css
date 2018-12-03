@@ -161,7 +161,7 @@ input {
   width: 120%;
   position: relative;
   z-index: 10;
-  font-size: 1em;
+  font-size: 1.1rem;
   width: 128%;
   background: url('./../assets/arrow-down.svg') no-repeat;
   background-position: 58% center;
@@ -248,21 +248,22 @@ input {
 	cursor: pointer;
 }
 
-.saved-project-button {
-	border: 1px solid #0280FC;
-  color: #FFF;
-  background-color: #0280FC;
-  font-weight: 700;
-  margin: 0.75rem 0 0.5rem 0;
-  font-size: 1rem;
-  height: 2rem;
-  width: auto;
+.palette-swatch:hover {
+  border-left: 3px solid #0280FC;
+  padding: 0 0 0 1rem;
 }
 
-.saved-project-button:hover {
-	background-color: #fccb65;
-	border: 1px solid #fccb65;
-	color: #000;
+.saved-project-header {
+  color: #0280FC;
+  font-weight: 700;
+  margin: 0.75rem 0 0.5rem 0;
+  font-size: 1.25rem;
+ 	width: auto;
+}
+
+.project-header-name {
+	color: #34352c;
+	margin: 0 0 0 0.5rem;
 }
 
 .saved-palettes {

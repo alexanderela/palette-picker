@@ -211,7 +211,8 @@ async function showSavedPalettes(projectId, projectName) {
 	const projectPalettes = await getPalettesForProject(projectId)
 	const paletteContainer = showPaletteContainer(projectName, projectPalettes)
 	const projectWithPalettes = `<section class='saved-project-palettes'>
-					<button class='saved-project-button'>Project: ${projectName}</button>
+					<h2 class='saved-project-header'>Project: 
+						<span class='project-header-name'>${projectName}</span></h2>
 					${paletteContainer.join('')}
 					</section>`
 	clearDisplayedPalettes()
