@@ -71,7 +71,6 @@ async function saveProject() {
 		addProjectToDropdown(inputValue, project.id)		
 		$('.project-input').val('')
 	} else {
-		console.log(`Project ${inputValue} already added!`)
 		$('.project-error').text(`Project '${inputValue}' already added!`)
 	}
 }
@@ -89,7 +88,6 @@ async function storeProject(projectName) {
     }
 	})
 	const data = await response.json()
-	console.log(data)
 	return data
 }
 
@@ -122,11 +120,6 @@ async function fetchPalettes(projectId) {
 	const palettes = await response.json();
 	return palettes;
 }
-
-// async function storePaletteInput(paletteInput, projectId) {
-// 	const fetchedPalettes = await fetchPalettes(projectId)
-// 	return fetchedPalettes.filter(palette => palette.name === paletteInput)
-// }
 
 function compilePalette(paletteInput) {
 	let allColors = {}
