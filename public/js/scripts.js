@@ -3,7 +3,7 @@ $(window).on('load', populateProjectDropdown)
 $('.lock-btn').on('click', toggleLock)
 $('.new-palette-btn').on('click', generatePalette)
 $('.save-project-btn').on('click', checkProjectInput)
-$('.save-palette-btn').on('click', savePalette)
+$('.save-palette-btn').on('click', checkPaletteInput)
 $('.project-select').on('change', populatePalettesFromDropdown)
 
 function generatePalette(e) {
@@ -116,7 +116,6 @@ async function storePalette(palette) {
 	return data
 }
 
-
 async function fetchPalettes(projectId) {
 	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes`
 	const response = await fetch(url)
@@ -141,6 +140,18 @@ function compilePalette(paletteInput) {
 	return palette
 }
 
+function checkPaletteInput() {
+	const inputValue = $('.palette-input').val()
+	const paletteError = $('.palette-error')
+	
+	if(inputValue !== '') {
+		paletteError.text('')
+		savePalette()
+	} else {
+		paletteError.text('Please enter a name for your palette')
+	}
+}
+
 async function savePalette() {
 	const inputValue = $('.palette-input').val()
 	const projectName = $('.project-select option:selected').text();
@@ -154,6 +165,7 @@ async function savePalette() {
 		$('.palette-input').val('')
 	} else {
 		console.log(`Palette ${inputValue} already added!`)
+		$('.palette-error').text(`Project '${inputValue}' already added!`)
 	}
 }
 

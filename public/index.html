@@ -44,17 +44,21 @@
 			</section>
 		</section>
 		<button class='new-palette-btn'>Generate New Palette!</button>
-		<!-- <hr class='palette-break'> -->
-		<section class='save-palette-container'>
-			<div class='dropdown-container'>
-				<select class='project-select'>
-	    		<option value=''>Please choose a project</option>
-				</select>
-			</div>
-			<input class='palette-input' placeholder='Enter palette name'>
-			<button class='save-palette-btn button-blue'>Save Palette</button>
+
+		<section class='save-palette-main'>
+			<section class='save-palette-container'>
+				<div class='dropdown-container'>
+					<select class='project-select'>
+		    		<option value=''>Please choose a project</option>
+					</select>
+				</div>
+				<input class='palette-input' placeholder='Enter palette name'>
+				<button class='save-palette-btn button-blue'>Save Palette</button>
+			</section>
+			<div class='palette-error-container'>
+				<p class='palette-error'></p>
+			</div>		
 		</section>
-		<!-- <hr class='palette-break'> -->
 		<section class='saved-palettes'></section>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
