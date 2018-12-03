@@ -5,7 +5,7 @@
 		<link href="../css/reset.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="../css/styles.css">
 		<link href="https://fonts.googleapis.com/css?family=Capriola|Sarala|Varela|Montserrat|PT+Sans|Work+Sans|Raleway|Comfortaa|Fredoka+One|Baloo+Chettan|Baloo+Da" rel="stylesheet">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
 		<header class='header'>
@@ -16,7 +16,9 @@
 					<input class='project-input' placeholder='New project name'>
 					<button class='save-project-btn button-blue'>Save Project</button>
 				</section>
-				<p class='project-error'></p>
+				<div class='project-error-container'>
+					<p class='project-error'></p>
+				</div>
 			</section>
 		</header>
 		<section class='all-colors'>
@@ -42,17 +44,21 @@
 			</section>
 		</section>
 		<button class='new-palette-btn'>Generate New Palette!</button>
-		<!-- <hr class='palette-break'> -->
-		<section class='save-palette-container'>
-			<div class='dropdown-container'>
-				<select class='project-select'>
-	    		<option value=''>Please choose a project</option>
-				</select>
-			</div>
-			<input class='palette-input' placeholder='Enter palette name'>
-			<button class='save-palette-btn button-blue'>Save Palette</button>
+
+		<section class='save-palette-main'>
+			<section class='save-palette-container'>
+				<div class='dropdown-container'>
+					<select class='project-select'>
+		    		<option value=''>Please choose a project</option>
+					</select>
+				</div>
+				<input class='palette-input' placeholder='Enter palette name'>
+				<button class='save-palette-btn button-blue'>Save Palette</button>
+			</section>
+			<div class='palette-error-container'>
+				<p class='palette-error'></p>
+			</div>		
 		</section>
-		<!-- <hr class='palette-break'> -->
 		<section class='saved-palettes'></section>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

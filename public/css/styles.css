@@ -2,11 +2,6 @@ body {
 	display: grid;
 	justify-items: center;
 	font-family: 'Baloo Chettan', sans-serif;
-	/*font-family: 'Varela', sans-serif;*/
-/*	font-family: 'Capriola', sans-serif;*/
-/*	font-family: 'Montserrat', sans-serif;*/
-/*	font-family: 'PT Sans', sans-serif;*/
-/*	font-family: 'Work Sans', sans-serif;*/
 }
 
 button {
@@ -70,11 +65,15 @@ input {
 .save-project-container {
   display: flex;
   border-radius: 20px;
-  height: 3rem;
+  height: 2.5rem;
   align-items: center;
   justify-content: center;
   /* padding: 0 2rem; */
   margin: 0.75rem 0 0;
+}
+
+.project-error-container {
+	height: 1rem;
 }
 
 .project-error {
@@ -88,12 +87,12 @@ input {
 
 .project-input {
 	width: 12rem;
-	height: 60%;
+	height: 73%;
 }
 
 .save-project-btn {
 	width: 10rem;	
-	height: 60%;
+	height: 73%;
 	font-size: 1rem;
 }
 
@@ -133,16 +132,23 @@ input {
 	background-image: url('./../assets/locked.svg');	
 }
 
+.save-palette-main {
+	display: flex;
+	flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin: 0 auto;
+}
+
 .save-palette-container {
 	display: flex;
-	/*background-color: #E9EBEE;*/
-  /*border: 1px solid #ddd;*/
   border-radius: 3px;
 	height: 4rem;
 	align-items: center;
 	justify-content: center;
 	padding: 0.5rem 2rem;
-	width: 60%;
+	width: 100%;
 	border-top: 1px solid #E7E9EB;
 	border-bottom: 1px solid #E7E9EB;
 }
@@ -161,10 +167,10 @@ input {
   width: 120%;
   position: relative;
   z-index: 10;
-  font-size: 1em;
+  font-size: 1.1rem;
   width: 128%;
   background: url('./../assets/arrow-down.svg') no-repeat;
-  background-position: 58% center;
+  background-position: 60% center;
   background-size: 20px;
   outline: none;
   font-family: Baloo Da;
@@ -215,12 +221,13 @@ input {
 }
 
 
-.palette-break {
-	border: 1px solid #E7E9EB;
-  color: #E7E9EB;
-	width: 30rem;
-  outline-offset: none;
-  width: 60%;
+.palette-error-container {
+	height: 1rem;
+}
+
+.palette-error {
+	color: red;
+  margin: 1rem 0 0 0;
 }
 
 .saved-project-palettes {
@@ -230,16 +237,10 @@ input {
 	border-top: 1px solid #E7E9EB;
 	border-bottom: 1px solid #E7E9EB;
   height: auto;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 	padding: 0.5rem 2rem 1rem;
   width: 19rem;
-}
-
-.palette-name {
-	cursor: pointer;
-  color: #5c5757;
-  margin: 0 0.75rem 0 0;
 }
 
 .palette-swatch {
@@ -248,21 +249,37 @@ input {
 	cursor: pointer;
 }
 
-.saved-project-button {
-	border: 1px solid #0280FC;
-  color: #FFF;
-  background-color: #0280FC;
-  font-weight: 700;
-  margin: 0.75rem 0 0.5rem 0;
-  font-size: 1rem;
-  height: 2rem;
-  width: auto;
+.palette-swatch:hover > .bullet-hover {
+  visibility: visible;
 }
 
-.saved-project-button:hover {
-	background-color: #fccb65;
-	border: 1px solid #fccb65;
-	color: #000;
+.bullet-hover {
+	height: 0.5rem;
+  width: 0.5rem;
+  background-color: #0280FC;
+  border-radius: 50%;
+  margin: 0 0.5rem 0 0;
+  visibility: hidden;
+}
+
+.palette-name {
+	cursor: pointer;
+  color: #5c5757;
+  margin: 0 0.75rem 0 0;
+}
+
+
+.saved-project-header {
+  color: #0280FC;
+  font-weight: 700;
+  margin: 0.75rem 0 0.5rem 0;
+  font-size: 1.25rem;
+ 	width: auto;
+}
+
+.project-header-name {
+	color: #34352c;
+	margin: 0 0 0 0.5rem;
 }
 
 .saved-palettes {
@@ -303,4 +320,72 @@ input {
 .delete-btn:hover {
 	background-color: #000;
 	border: 1px solid #000;
+}
+
+
+@media (max-width: 882px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    'title'
+    'input';
+    height: 7rem;
+    justify-content: center;
+  }
+
+  .main-title {
+  	grid-area: title;
+    padding: 1rem 0 0 0;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+  	font-size: 2rem;
+  }
+
+  .header-left {
+  	grid-area: input;
+  	margin: 0;
+  }
+
+  .save-project-container {
+  	margin: 0;
+  }
+
+  .palette-input {
+  	font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+	.header {
+		width: 100vw;
+	}
+
+	.main-title {
+
+	}
+
+  .header-left {
+		width: 100vw;
+  }
+
+	.all-colors {
+		grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: 1fr;
+    width: 100%;
+	}
+
+	.palette {
+		flex-direction: row;
+	}
+
+	.lock-btn {
+		height: 2rem;
+		width: 2rem;
+	}
+
+  .palette-input {
+  	font-size: 0.5rem;
+  }	
 }

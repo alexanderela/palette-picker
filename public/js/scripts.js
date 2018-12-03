@@ -3,7 +3,7 @@ $(window).on('load', populateProjectDropdown)
 $('.lock-btn').on('click', toggleLock)
 $('.new-palette-btn').on('click', generatePalette)
 $('.save-project-btn').on('click', checkProjectInput)
-$('.save-palette-btn').on('click', savePalette)
+$('.save-palette-btn').on('click', checkPaletteInput)
 $('.project-select').on('change', populatePalettesFromDropdown)
 
 function generatePalette(e) {
@@ -116,7 +116,6 @@ async function storePalette(palette) {
 	return data
 }
 
-
 async function fetchPalettes(projectId) {
 	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes`
 	const response = await fetch(url)
@@ -124,11 +123,10 @@ async function fetchPalettes(projectId) {
 	return palettes;
 }
 
-async function storePaletteInput(paletteInput, projectId) {
-
-	const fetchedPalettes = await fetchPalettes(projectId)
-	return fetchedPalettes.filter(palette => palette.name === paletteInput)
-}
+// async function storePaletteInput(paletteInput, projectId) {
+// 	const fetchedPalettes = await fetchPalettes(projectId)
+// 	return fetchedPalettes.filter(palette => palette.name === paletteInput)
+// }
 
 function compilePalette(paletteInput) {
 	let allColors = {}
@@ -141,20 +139,35 @@ function compilePalette(paletteInput) {
 	return palette
 }
 
+function checkPaletteInput() {
+	const inputValue = $('.palette-input').val()
+	const paletteError = $('.palette-error')
+	
+	if(inputValue !== '') {
+		paletteError.text('')
+		savePalette()
+	} else {
+		paletteError.text('Please enter a name for your palette')
+	}
+}
+
 async function savePalette() {
 	const inputValue = $('.palette-input').val()
 	const projectName = $('.project-select option:selected').text();
 	const palette = compilePalette(inputValue)
 	const { name, project_id } = palette
-	const projectAlreadyStored = await storePaletteInput(inputValue, project_id)
+	const names = document.querySelectorAll('.palette-name')
 
-	if(projectAlreadyStored.length === 0) {
-		storePalette(palette)
+	for(let i = 0; i < names.length; i++) {
+		if(names[i].innerText === name) {
+			$('.palette-error').text(`Palette '${inputValue}' already added!`)
+			return
+		}
+	}
+	const id = await storePalette(palette)
+	const paletteArea = $('.saved-project-palettes')
 		await showSavedPalettes(project_id, projectName)
 		$('.palette-input').val('')
-	} else {
-		console.log(`Palette ${inputValue} already added!`)
-	}
 }
 
 async function getPalettesForProject(projectId) {
@@ -185,6 +198,7 @@ function showPaletteContainer(projectName, projectPalettes) {
 	return projectPalettes.map(palette => {
 		let { id, name, color1, color2, color3, color4, color5, project_id } = palette
 		return `<div class='palette-swatch palette-swatch-${id}' data-id='${id}' onclick='setMainPaletteFromSaved(event)'>
+			<div class='bullet-hover'></div>
 			<h3 class='palette-name swatch'>${name}</h3>	
 			<div class='palette-thumb swatch' style='background-color:${color1}'>
 				<h3 class='palette-swatch-hex swatch-color-1'>${color1}</h3>
@@ -211,7 +225,8 @@ async function showSavedPalettes(projectId, projectName) {
 	const projectPalettes = await getPalettesForProject(projectId)
 	const paletteContainer = showPaletteContainer(projectName, projectPalettes)
 	const projectWithPalettes = `<section class='saved-project-palettes'>
-					<button class='saved-project-button'>Project: ${projectName}</button>
+					<h2 class='saved-project-header'>Project: 
+						<span class='project-header-name'>${projectName}</span></h2>
 					${paletteContainer.join('')}
 					</section>`
 	clearDisplayedPalettes()
