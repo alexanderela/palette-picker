@@ -125,6 +125,7 @@ async function fetchPalettes(projectId) {
 }
 
 async function storePaletteInput(paletteInput, projectId) {
+
 	const fetchedPalettes = await fetchPalettes(projectId)
 	return fetchedPalettes.filter(palette => palette.name === paletteInput)
 }
@@ -134,7 +135,6 @@ function compilePalette(paletteInput) {
 	for(let i = 1; i < 6; i++) {
 		allColors[`color${i}`] = $(`.color-${i}-text`).text()
 	}
-	// const projectId = $('.proj-dropdown-opt').attr('data-id')
 	const projectId = $('.project-select option:selected').attr('data-id');
 	const paletteNameId = {name: paletteInput, project_id: projectId}
 	const palette = Object.assign(allColors, paletteNameId)
@@ -173,17 +173,12 @@ function populatePalettesFromDropdown(e) {
 
 function setMainPaletteFromSaved(event) {
 	if($(event.target).hasClass('swatch')) {
-		console.log($(event.target.parentNode).find('.palette-thumb').text())
+		const paletteSwatch = $(event.target.parentNode)
+
 		for(let i = 1; i < 6; i++) {
-			$(`.color-${i}`).css('background-color', getSwatchColors(`${i}`));
+			$(`.color-${i}`).css('background-color', paletteSwatch.find(`.swatch-color-${i}`).text());
 		}
 	} 
-}
-
-function getSwatchColors(num) {
-	const swatchHexCodes = $(`.swatch-color-${num}`).text().slice(0, 7);
-	console.log(swatchHexCodes)
-	return swatchHexCodes
 }
 
 function showPaletteContainer(projectName, projectPalettes) {
@@ -212,7 +207,6 @@ function showPaletteContainer(projectName, projectPalettes) {
 }
 
 async function showSavedPalettes(projectId, projectName) {
-	debugger
 	const projectDropdownName = $('.project-select option:selected').text()
 	const projectPalettes = await getPalettesForProject(projectId)
 	const paletteContainer = showPaletteContainer(projectName, projectPalettes)
