@@ -17,6 +17,16 @@ app.locals.title = 'Palette Picker';
 app.use(express.static('public'));
 
 
+
+const requireHTTPS = (request, response, next) => {
+	if(request.headers['x-forwarded-proto'] !== 'https') {
+		return response.redirect('https://' + request.get('host') + request.url);
+	}
+	next();
+}
+
+app.use(requireHTTPS);
+
 //Project Endpoints
 
 app.get('/api/v1/projects', (request, response) => {
@@ -111,24 +121,3 @@ app.delete('/api/v1/projects/:project_id/palettes/:id', (request, response) => {
 app.listen(app.get('port'), () => {
 	console.log(`${app.locals.title} is running on ${app.get('port')}`)
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
