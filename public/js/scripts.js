@@ -80,7 +80,7 @@ async function addProjectToDropdown(projectInput, projectId) {
 }
 
 async function storeProject(projectName) {
-	const response = await fetch('http://localhost:3000/api/v1/projects', {
+	const response = await fetch('/api/v1/projects', {
     method: 'POST',
     body: JSON.stringify({ name: projectName }),
     headers:{
@@ -95,7 +95,7 @@ async function storeProject(projectName) {
 
 async function storePalette(palette) {
 	const { name, color1, color2, color3, color4, color5, project_id } = palette
-	const response = await fetch('http://localhost:3000/api/v1/palettes', {
+	const response = await fetch('/api/v1/palettes', {
 		method: 'POST',
 		body: JSON.stringify({ 
 			name: name,
@@ -115,7 +115,7 @@ async function storePalette(palette) {
 }
 
 async function fetchPalettes(projectId) {
-	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes`
+	const url = `/api/v1/projects/${projectId}/palettes`
 	const response = await fetch(url)
 	const palettes = await response.json();
 	return palettes;
@@ -232,11 +232,11 @@ function clearDisplayedPalettes() {
 
 
 async function deletePalette(e, paletteId, projectId) {
-	const url = `http://localhost:3000/api/v1/projects/${projectId}/palettes/${paletteId}`
+	const url = `/api/v1/projects/${projectId}/palettes/${paletteId}`
 	const response = await fetch(url, {
 		method: 'DELETE',
 		body: JSON.stringify({
-			message: 'palette successfuly deleted hohhhhhh godddddd'
+			message: 'Palette successfuly deleted.'
 		}),
 		headers: {
 			'Content-Type': 'application/json'
