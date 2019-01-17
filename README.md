@@ -1,6 +1,9 @@
 # Palette Picker
 This project required us to build a palette picker, where users can generate color palettes with randomized hex codes. Users can lock colors within the palette and then save palettes under project names of their choice.
 
+## Deployed App
+[Palette Picker - deployed app](https://palette-picker-alexanderela.herokuapp.com/)
+
 ## Contributing Team Members
 [alexanderela (Alexander Ela) * GitHub](https://github.com/alexanderela)
 
