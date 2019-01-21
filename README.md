@@ -21,17 +21,17 @@ This is a general guide to setting up a Recharge API development environment on 
 
 * `Clone` your fork onto your local machine
 ```
-git clone https://github.com/YOUR_GITHUB_USERNAME_HERE/world-of-flags
+git clone https://github.com/YOUR_GITHUB_USERNAME_HERE/palette-picker
 ```
 
 * Jump into that directory on your local machine
 ```
-cd world-of-flags
+cd palette-picker
 ```
 
 * Add an upstream remote that points to the main repo:
 ```
-git remote add upstream https://github.com/alexanderela/world-of-flags.git
+git remote add upstream https://github.com/alexanderela/palette-picker.git
 ```
 
 * Fetch the latest version of `master` from `upstream`
