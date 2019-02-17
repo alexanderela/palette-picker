@@ -91,8 +91,6 @@ git push origin branch-name-here
 - jQuery
 - Postgres
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Project Requirements
 Project spec can be found [here](http://frontend.turing.io/projects/palette-picker.html)
 
