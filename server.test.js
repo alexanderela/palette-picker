@@ -1,4 +1,3 @@
-
 describe('server.js', () => {
 	let server;
 
