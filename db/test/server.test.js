@@ -1,6 +1,3 @@
-process.env.NODE_ENV = 'test';
-
-const chai = require('chai');
 
 describe('server.js', () => {
 	let server;
