@@ -13,6 +13,17 @@ module.exports = {
     },
     useNullAsDefault: true
   },
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/palettepicker_test',
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      './db/seeds/test'
+    },
+    useNullAsDefault: true,
+  },
 	production: {
 		client: 'pg',
 		connection: process.env.DATABASE_URL + `?ssl=true`,
