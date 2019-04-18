@@ -10,7 +10,18 @@ const database = require('knex')(config);
 chai.use(chaiHttp)
 
 describe('server.js', () => {
+	before(done => {
+		database.migrate.rollback()
+			.then(() => database.migrate.latest())
+			.then(() => database.seed.run())
+			.then(() => done())
+	})
 
+	after(done => {
+		database.migrate.rollback()
+			.then(() => console.log('Testing complete. Db rolled back.'))
+			.then(() => done())
+	})
 
 	describe('GET /projects', () => {
 		it('should respond to /', (done) => {
