@@ -1,17 +1,16 @@
 process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
+const chaiHttp = require('chai-http');
+const expect = chai.expect;
+const app = require('../server');
+const config = require('../knexfile')['test'];
+const database = require('knex')(config);
+
+chai.use(chaiHttp)
 
 describe('server.js', () => {
-	let server;
 
-	beforeEach(() => {
-		server = require('./server.js');
-	})
-
-	afterEach(() => {
-		server.close()
-	})
 
 	describe('GET /projects', () => {
 		it('should respond to /', (done) => {
