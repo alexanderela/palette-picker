@@ -10,7 +10,7 @@ const database = require('knex')(config);
 chai.use(chaiHttp)
 
 describe('server.js', () => {
-	before(done => {
+	beforeEach(done => {
 		database.migrate.rollback()
 			.then(() => database.migrate.latest())
 			.then(() => database.seed.run())
@@ -24,10 +24,11 @@ describe('server.js', () => {
 	})
 
 	describe('GET /projects', () => {
-		it('should respond to /', (done) => {
+		it('should respond to /', async (done) => {
 			const res = await request(app).get('/api/v1/projects')
 			const result = res.body
 			expect(result.length).toEqual(0)
+			done();
 		})
 	})
 })
