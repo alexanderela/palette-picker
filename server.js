@@ -1,13 +1,13 @@
-const express = require('express');
-const app = express();
-app.locals.projects = [];
 const bodyParser = require('body-parser');
-const uuidv4 = require('uuid/v4');
-app.locals.palettes = [];
-
+const express = require('express');
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
+const app = express();
+app.locals.projects = [];
+const uuidv4 = require('uuid/v4');
+app.locals.palettes = [];
+
 
 app.use( bodyParser.json() );
 
@@ -118,6 +118,12 @@ app.delete('/api/v1/projects/:project_id/palettes/:id', (request, response) => {
 		})
 })
 
+app.use((request, response) => {
+	response.status(404).send('Sorry, the path you entered does not exist.')
+})
+
 app.listen(app.get('port'), () => {
 	console.log(`${app.locals.title} is running on ${app.get('port')}`)
 })
+
+module.exports = app;
