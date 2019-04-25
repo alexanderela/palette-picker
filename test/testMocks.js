@@ -103,3 +103,14 @@ const testMockEditPalettes = [
 		color5: '#ffa500',
 	}
 ]
+
+module.exports = { 
+	testProjects, 
+	testMockProjects, 
+	testErrorProjects, 
+	testEditProjects, 
+	testPalettes, 
+	testMockPalettes, 
+	testMockErrorPalettes, 
+	testMockEditPalettes 
+}
