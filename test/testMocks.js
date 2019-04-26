@@ -108,7 +108,7 @@ module.exports = {
 	testProjects, 
 	testMockProjects, 
 	testErrorProjects, 
-	testEditProjects, 
+	testMockEditProjects, 
 	testPalettes, 
 	testMockPalettes, 
 	testMockErrorPalettes, 
