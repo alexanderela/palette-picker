@@ -42,10 +42,16 @@ describe('server.js', () => {
 			chai.request(app)
 				.get('/api/v1/projects')
 				.end((error, response) => {
-					const projectNames = response.body.map(project => project.name);
-					const correctProjectName = 'test seed project'
+					console.log(response)
+					// console.log(response)
+					// const projectNames = response.body.map(project => project.name);
+					const projectName1 = 'test seed project'
+
+					// expect(error).to.be.null
+					// expect(response).to.have.status(200)
+					// expect(projectNames.includes(projectName1)).to.equal(true)
+					done();
 				})
-			done();
 		})
 	})
 })
