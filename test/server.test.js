@@ -6,11 +6,12 @@ const expect = chai.expect;
 const app = require('../server');
 const config = require('../knexfile')['test'];
 const database = require('knex')(config);
+const { testProjects, testMockProjects, testErrorProjects, testMockEditProjects, testPalettes, testMockPalettes, testMockErrorPalettes, testMockEditPalettes } = require('./testMocks');
 
 chai.use(chaiHttp)
 
 describe('server.js', () => {
-	beforeEach(done => {
+	before(done => {
 		database.migrate.rollback()
 			.then(() => database.migrate.latest())
 			.then(() => database.seed.run())
@@ -23,7 +24,20 @@ describe('server.js', () => {
 			.then(() => done())
 	})
 
-	describe('GET /projects', () => {
+	describe('GET /api/v1/stations', () => {
+		beforeEach(done => {
+			database.migrate.rollback()
+				.then(() => database.migrate.latest())
+				.then(() => database.seed.run())
+				.then(() => done())
+		})
+
+		after(done => {
+			database.migrate.rollback()
+				.then(() => console.log('Testing complete. Db rolled back.'))
+				.then(() => done())
+		})
+
 		it('should respond to /', async (done) => {
 			// const res = await request(app).get('/api/v1/projects')
 			// const result = res.body
