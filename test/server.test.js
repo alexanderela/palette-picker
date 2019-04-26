@@ -43,7 +43,7 @@ describe('server.js', () => {
 				.get('/api/v1/projects')
 				.end((error, response) => {
 					const projectNames = response.body.map(project => project.name);
-					const stationName1 = ''
+					const correctProjectName = 'test seed project'
 				})
 			done();
 		})
