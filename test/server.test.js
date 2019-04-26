@@ -24,7 +24,7 @@ describe('server.js', () => {
 			.then(() => done())
 	})
 
-	describe('GET /api/v1/stations', () => {
+	describe('GET /api/v1/projects', () => {
 		beforeEach(done => {
 			database.migrate.rollback()
 				.then(() => database.migrate.latest())
@@ -38,10 +38,13 @@ describe('server.js', () => {
 				.then(() => done())
 		})
 
-		it('should respond to /', async (done) => {
-			// const res = await request(app).get('/api/v1/projects')
-			// const result = res.body
-			// expect(result.length).toEqual(0)
+		it('GET sends back a 200 status code and correct response object', done => {
+			chai.request(app)
+				.get('/api/v1/projects')
+				.end((error, response) => {
+					const projectNames = response.body.map(project => project.name);
+					const stationName1 = ''
+				})
 			done();
 		})
 	})
