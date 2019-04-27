@@ -6,6 +6,18 @@ const createProjects = (knex, project) => {
 	}, 'id')
 }
 
+const createPalettes = (knex, palette) => {
+  return knex('palettes').insert({
+          name: palette.name,
+          color1: palette.color1,
+          color2: palette.color2,
+          color3: palette.color3,
+          color4: palette.color4,
+          color5: palette.color5,
+          project_id: 1     
+  }, 'id')
+}
+
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('palettes').del()
@@ -15,8 +27,16 @@ exports.seed = function(knex, Promise) {
       let projectPromises = mockProjects.map(project => {
       	return createProjects(knex, project)
       })
+      // console.log(projectPromises)
       return Promise.all(projectPromises)
     })
-    .then(() => console.log('Successfully seeded db!'))
-    .catch(error => console.log(`Error seeding db: ${error.message}`))
+    .then(() => {
+     let palettePromises = mockPalettes.map(palette => {
+       return createPalettes(knex, palette)
+     })
+     // console.log(palettePromises)
+      return Promise.all(palettePromises)
+    })
+    .then(() => console.log('Successfully seeded test db!'))
+    .catch(error => console.log(`Error seeding test db: ${error.message}`))
 };
