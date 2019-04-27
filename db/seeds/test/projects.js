@@ -1,5 +1,12 @@
 const { mockProjects, mockPalettes } = require('../../../utils/seedMocks')
 
+const createProjects = (knex, project) => {
+	return knex('projects').insert({
+		name: project.name
+	}, 'id')
+}
+
+
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('palettes').del()
