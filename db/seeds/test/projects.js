@@ -6,6 +6,9 @@ const createProjects = (knex, project) => {
 	}, 'id')
 }
 
+const createPalettes = (knex, palette) => {
+	return knex('palettes').insert(palette)
+}
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
