@@ -246,3 +246,5 @@ async function deletePalette(e, paletteId, projectId) {
 	$(`.palette-swatch-${paletteId}`).remove()
 	return data
 }
+
+module.exports = checkProjectInput
