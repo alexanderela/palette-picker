@@ -42,7 +42,7 @@ describe('server.js', () => {
 			chai.request(app)
 				.get('/api/v1/projects')
 				.end((error, response) => {
-					console.log(response)
+					console.log(app.get('/api/v1/projects'))
 					// console.log(response)
 					// const projectNames = response.body.map(project => project.name);
 					const projectName1 = 'test seed project'
@@ -53,5 +53,7 @@ describe('server.js', () => {
 					done();
 				})
 		})
+
+		
 	})
 })
